@@ -70,3 +70,11 @@ individual y dos casos DataDriver. Cada caso genera su propio HTML.
 ## Cambio de compatibilidad en 0.4
 
 La versión 0.4 retira las keywords de compatibilidad anteriores. Las suites y recursos deben usar Capture Response y Assert. El import público es RequestReporter.
+
+## Documentación bilingüe
+
+El inglés vive en `docs/en/` y se publica en la raíz. El español vive en `docs/es/`
+y se publica bajo `/es/`. Conserva los mismos nombres de página en ambos idiomas.
+Las traducciones de Libdoc viven en `docs/translations/es/libdoc.json`; la compilación
+rechaza entradas faltantes o desactualizadas. El menú nativo de Libdoc cambia sus
+controles y las descripciones. Los nombres de keywords y parámetros se conservan.

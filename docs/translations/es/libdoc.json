@@ -1,0 +1,26 @@
+{
+  "introduction": {
+    "source_sha256": "013604dc811d1bf81f72bcca635f50e817d8afd305c0de03f5989aa104f4a40e",
+    "text": "Biblioteca y listener de Robot que generan un HTML autocontenido por caso."
+  },
+  "init:__init__": {
+    "source_sha256": "7bd65fcce5cab3924af2bb7ee74e5241daf8edecd116f6133c7ad0d31748984b",
+    "text": "Configura el reporter sin crear archivos durante la importación o Libdoc.\n\n| Argumento | Significado |\n| --- | --- |\n| output_dir | Directorio de reportes; por defecto OUTPUT DIR/cases de Robot. |\n| language | Idioma de la interfaz del reporte. Esta versión solo admite `en`. |\n| redact_headers | Nombres de headers separados por comas; no distingue mayúsculas. |\n| redact_body_fields | Nombres de campos JSON/form/query separados por comas. |\n\n```robotframework\nLibrary    RequestReporter    output_dir=${OUTPUT DIR}/cases\n```\n\nLos metadatos y etiquetas de validación conservan el idioma del usuario. La protección solo afecta el HTML de esta biblioteca, no los logs de Robot/RequestsLibrary. Las respuestas binarias se resumen por su número de bytes. Los archivos enviados y cuerpos multipart se resumen en lugar de incrustarse."
+  },
+  "keyword:Assert": {
+    "source_sha256": "34fc77bed3aa971090eb43e6c763dd1f8807e80d96c9604110b277b14b4f924d",
+    "text": "Ejecuta una keyword de assertion, registra su resultado y propaga los fallos normales.\n\nAsocia la validación con `request_id`, sin asumir un último request. Admite assertions BuiltIn de Robot y keywords propias. Los argumentos posicionales posteriores a `assertion_keyword` se envían sin cambios.\n\n```robotframework\nAssert    ${id}    Distributor type\n...    Should Be Equal As Strings    ${body}[tipoDistribuidor]    AGENTE\n```\n\nDevuelve el valor retornado por la assertion cuando aprueba. Si falla, propaga el error y conserva el estado FAIL de Robot. Usa `robot:continue-on-failure` en un grupo de validaciones de negocio para ejecutar comprobaciones independientes.\n\nLas igualdades habituales muestran Expected/Actual. Las comprobaciones de contenido muestran `non-empty value`; las keywords propias muestran argumentos y mensaje de error. Las comprobaciones no ejecutadas no se cuentan. Un ID desconocido falla antes de ejecutar la assertion."
+  },
+  "keyword:Capture Request Error": {
+    "source_sha256": "526f91c8e97d9c399f6f116edcb777997a11463148ceef8433370e124a5489d1",
+    "text": "Registra un intento HTTP sin response; no ejecuta HTTP ni falla el caso.\n\nÚsala dentro de TRY/EXCEPT alrededor de la llamada HTTP y propaga después el fallo original. Solo captura información proporcionada por quien llama; no inventa estatus, headers ni cuerpo. Las reglas de protección del reporter se aplican a la URL y mensaje.\n\n```robotframework\nTRY\n    ${response}=    GET    ${URL}    timeout=10    expected_status=anything\nEXCEPT    AS    ${error}\n    Capture Request Error    Health    GET    ${URL}    ${error}\n    Fail    ${error}\nEND\n```\n\nNo devuelve un valor. Los intentos fallidos aparecen en Summary y Failures, separados de intercambios completos. Para HTTP 4xx/5xx utiliza Capture Response normalmente. El resultado real del caso proviene de Robot."
+  },
+  "keyword:Capture Response": {
+    "source_sha256": "0a654a8715086ad9f796de5f3489d61f5ae3fea63fffcf7a304615c96a85110b",
+    "text": "Captura un response de RequestsLibrary y devuelve su ID local al caso.\n\n`response` debe ser un requests.Response con un request preparado. Captura método, URL, headers y cuerpos del request/response, código HTTP y tiempo transcurrido. Captura antes de validar HTTP para conservar también respuestas inesperadas.\n\n```robotframework\n${response}=    GET    ${URL}    expected_status=anything\n${id}=    Capture Response    Consult distributor    ${response}\nAssert    ${id}    Status\n...    Should Be Equal As Integers    ${response.status_code}    200\n```\n\nDevuelve `request-1`, `request-2`, etc. Los IDs solo son válidos dentro del caso actual. Un response inválido produce un error. Consulta [Assert] para las assertions."
+  },
+  "keyword:Set Case Metadata": {
+    "source_sha256": "c0a281a59e4dea3c0a0f7470269561899df10793488b29408b388b0a4ca72bb0",
+    "text": "Agrega metadatos opcionales al caso actual y reemplaza las claves coincidentes.\n\nNombre, estatus, origen y duración se capturan automáticamente. Los metadatos son opcionales: no se exige un ID de caso ni una fila de datos para generar el reporte.\n\n```robotframework\nSet Case Metadata    case_id=DIST-002    environment=QA    data_row=2\n```\n\nNo devuelve un valor. Falla fuera de un test activo. Los campos sensibles configurados se ocultan. Consulta [Capture Response]."
+  }
+}

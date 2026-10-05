@@ -7,14 +7,14 @@ Necesitas Python 3.12+ y Robot Framework 7.5+ dentro de la rama 7.x.
 === "Poetry"
 
     ```bash
-    poetry add robotframework-request-reporter==0.4.0 robotframework-requests
+    poetry add robotframework-request-reporter robotframework-requests
     poetry run robot --version
     ```
 
 === "pip"
 
     ```bash
-    python -m pip install robotframework-request-reporter==0.4.0 robotframework-requests
+    python -m pip install robotframework-request-reporter robotframework-requests
     python -m robot --version
     ```
 

@@ -1,0 +1,36 @@
+INHERIT: mkdocs.base.yml
+site_description: Evidencia API de Robot Framework, un HTML por caso
+site_url: https://angel-valdezzz.github.io/robotframework-request-reporter/es/
+docs_dir: docs/es
+site_dir: build/site-es
+edit_uri: edit/main/docs/es/
+theme:
+  language: es
+  palette:
+  - scheme: default
+    primary: custom
+    accent: teal
+    toggle:
+      icon: material/weather-night
+      name: Modo oscuro
+  - scheme: slate
+    primary: custom
+    accent: teal
+    toggle:
+      icon: material/weather-sunny
+      name: Modo claro
+plugins:
+  - search:
+      lang: es
+nav:
+  - Inicio: index.md
+  - Manual de usuario:
+      - Instalación: installation.md
+      - Primer caso y varios requests: usage.md
+      - Casos con DataDriver: datadriver.md
+      - Configuración: configuration.md
+      - Leer el reporte: report.md
+      - Solución de problemas: troubleshooting.md
+  - Referencia de keywords: keywords/index.html
+  - Desarrollo y publicación: development.md
+  - Ejemplos visuales: examples/report.html

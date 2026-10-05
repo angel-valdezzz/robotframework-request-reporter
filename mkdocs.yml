@@ -1,72 +1,36 @@
-site_name: Robot Framework Request Reporter
-site_description: Evidencia API de Robot Framework, un HTML por caso
+INHERIT: mkdocs.base.yml
+site_description: API evidence for Robot Framework, one HTML per case
 site_url: https://angel-valdezzz.github.io/robotframework-request-reporter/
-repo_url: https://github.com/angel-valdezzz/robotframework-request-reporter
-repo_name: angel-valdezzz/robotframework-request-reporter
-edit_uri: edit/main/docs/
-copyright: Robot Framework Request Reporter · Robot Framework API evidence
-extra_javascript:
-  - assets/javascripts/external-sections.js
-extra_css:
-  - assets/stylesheets/extra.css
+docs_dir: docs/en
+site_dir: site
+edit_uri: edit/main/docs/en/
 theme:
-  name: material
-  language: es
-  logo: assets/logo.svg
-  favicon: assets/logo.svg
-  icon:
-    repo: fontawesome/brands/github
-  features:
-    - navigation.sections
-    - navigation.indexes
-    - navigation.top
-    - navigation.footer
-    - search.suggest
-    - search.highlight
-    - content.code.copy
-    - content.code.annotate
+  language: en
   palette:
-    - scheme: default
-      primary: custom
-      accent: teal
-      toggle:
-        icon: material/weather-night
-        name: Modo oscuro
-    - scheme: slate
-      primary: custom
-      accent: teal
-      toggle:
-        icon: material/weather-sunny
-        name: Modo claro
+  - scheme: default
+    primary: custom
+    accent: teal
+    toggle:
+      icon: material/weather-night
+      name: Dark mode
+  - scheme: slate
+    primary: custom
+    accent: teal
+    toggle:
+      icon: material/weather-sunny
+      name: Light mode
 plugins:
-  - search
-markdown_extensions:
-  - admonition
-  - attr_list
-  - md_in_html
-  - tables
-  - toc:
-      permalink: true
-  - pymdownx.details
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
+  - search:
+      lang: en
 nav:
-  - Inicio: index.md
-  - Manual de usuario:
-      - Instalación: installation.md
-      - Primer caso y varios requests: usage.md
-      - Casos con DataDriver: datadriver.md
-      - Configuración: configuration.md
-      - Leer el reporte: report.md
-      - Solución de problemas: troubleshooting.md
-  - Referencia de keywords: keywords/index.html
-  - Ejemplo en vivo: examples/report.html
-  - Desarrollo y publicación: development.md
+  - Home: index.md
+  - User guide:
+      - Installation: installation.md
+      - First case and multiple requests: usage.md
+      - DataDriver cases: datadriver.md
+      - Configuration: configuration.md
+      - Reading the report: report.md
+      - Troubleshooting: troubleshooting.md
+  - Keyword reference: keywords/index.html
+  - Development and publishing: development.md
+  - Visual examples: examples/report.html
