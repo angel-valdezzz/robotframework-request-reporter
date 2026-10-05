@@ -1,0 +1,72 @@
+site_name: Robot Framework Request Reporter
+site_description: Evidencia API de Robot Framework, un HTML por caso
+site_url: https://angel-valdezzz.github.io/robotframework-request-reporter/
+repo_url: https://github.com/angel-valdezzz/robotframework-request-reporter
+repo_name: angel-valdezzz/robotframework-request-reporter
+copyright: Robot Framework Request Reporter · Robot Framework API evidence
+extra_javascript:
+  - assets/javascripts/external-sections.js
+extra_css:
+  - assets/stylesheets/standard.css
+  - assets/stylesheets/extra.css
+theme:
+  font: false
+  custom_dir: overrides
+  name: material
+  language: en
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  palette:
+    - scheme: default
+      primary: custom
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+    - scheme: slate
+      primary: custom
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+plugins:
+  - search
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra:
+  alternate:
+    - name: English
+      link: https://angel-valdezzz.github.io/robotframework-request-reporter/
+      lang: en
+    - name: Español
+      link: https://angel-valdezzz.github.io/robotframework-request-reporter/es/
+      lang: es

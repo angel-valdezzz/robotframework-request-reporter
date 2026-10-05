@@ -5,6 +5,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+from bilingual_libdoc import generate
+from bilingual_site import build
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -12,12 +15,11 @@ def main() -> None:
     demo = ROOT / "build" / "report.html"
     if not demo.is_file():
         subprocess.run([sys.executable, str(ROOT / "scripts" / "verify.py")], check=True)
-    keywords = ROOT / "docs" / "keywords" / "index.html"
-    keywords.parent.mkdir(exist_ok=True)
-    subprocess.run(
-        [sys.executable, "-m", "robot.libdoc", "RequestReporter", str(keywords)],
-        cwd=ROOT,
-        check=True,
+    generate(
+        "RequestReporter",
+        ROOT,
+        "keywords/index.html",
+        "https://angel-valdezzz.github.io/robotframework-request-reporter/",
     )
     examples = ROOT / "docs" / "examples"
     examples.mkdir(exist_ok=True)
@@ -27,7 +29,7 @@ def main() -> None:
     shutil.copyfile(
         ROOT / "results/acceptance/cases/Passing_distributor.html", examples / "passing.html"
     )
-    subprocess.run([sys.executable, "-m", "mkdocs", "build", "--strict"], cwd=ROOT, check=True)
+    build(ROOT, ("assets", "examples"))
     print("Built MkDocs, keywords/index.html and examples/report.html.")
 
 
