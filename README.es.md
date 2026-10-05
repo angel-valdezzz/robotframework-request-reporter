@@ -1,5 +1,10 @@
 # Robot Framework Request Reporter
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/logo-wordmark-dark.svg">
+  <img src="docs/assets/logo-wordmark.svg" alt="Request Reporter" width="380">
+</picture>
+
 **Un reporte HTML autocontenido de evidencia por caso de pruebas API en Robot Framework.**
 
 [English](README.md) · **Español**
