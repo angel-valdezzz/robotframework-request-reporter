@@ -7,15 +7,17 @@ edit_uri: edit/main/docs/en/
 theme:
   language: en
   palette:
-  - scheme: default
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
     primary: custom
-    accent: teal
+    accent: custom
     toggle:
       icon: material/weather-night
       name: Dark mode
-  - scheme: slate
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
     primary: custom
-    accent: teal
+    accent: custom
     toggle:
       icon: material/weather-sunny
       name: Light mode
