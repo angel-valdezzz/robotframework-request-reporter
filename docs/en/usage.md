@@ -2,7 +2,7 @@
 
 Save this as `tests/distributor.robot`. Replace the fictitious URL with your service, or use the [executable local API example](https://github.com/angel-valdezzz/robotframework-api-testing/tree/main).
 
-```robotframework
+```robotframework hl_lines="12-14 22-25"
 *** Settings ***
 Library    RequestsLibrary
 Library    RequestReporter
@@ -43,7 +43,7 @@ The output is `results/cases/Consultar_distribuidor.html`. Its title is the test
 
 If you obtain a token and then query a distributor, capture each response and retain both IDs. Provide the corresponding ID to each `Assert`. There is no implicit “last request”.
 
-```robotframework
+```robotframework hl_lines="6-8 10"
 *** Keywords ***
 Obtener token
     VAR    &{form}    grant_type=client_credentials    client_secret=${CLIENT_SECRET}
@@ -73,7 +73,7 @@ This snippet requires `${BASE_URL}`, `${CLIENT_SECRET}` and the first example's 
 
 The listener generates HTML even if the test fails before Capture Response. To explicitly associate a timeout or connection error with its operation, record the attempt in a service keyword. This does not execute HTTP or change test status: propagate the original failure after recording evidence.
 
-```robotframework
+```robotframework hl_lines="10-11 14-16"
 *** Settings ***
 Library    RequestsLibrary
 Library    RequestReporter

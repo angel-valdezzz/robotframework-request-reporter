@@ -2,7 +2,7 @@
 
 Configure the library when importing it. No alias is required.
 
-```robotframework
+```robotframework hl_lines="4-6"
 *** Settings ***
 Library    RequestReporter
 ...    output_dir=${OUTPUT DIR}/cases

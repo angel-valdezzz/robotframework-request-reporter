@@ -9,7 +9,7 @@
 
 [English](README.md) · **Español**
 
-[Manual de usuario ↗](https://angel-valdezzz.github.io/robotframework-request-reporter/es/) · [Referencia de keywords ↗](https://angel-valdezzz.github.io/robotframework-request-reporter/es/keywords/) · [PyPI ↗](https://pypi.org/project/robotframework-request-reporter/) · [Ejemplos visuales ↗](https://angel-valdezzz.github.io/robotframework-request-reporter/es/examples/report.html)
+[Manual de usuario](https://angel-valdezzz.github.io/robotframework-request-reporter/es/) · [Referencia de keywords](https://angel-valdezzz.github.io/robotframework-request-reporter/es/keywords/) · [PyPI](https://pypi.org/project/robotframework-request-reporter/) · [Ejemplos visuales](https://angel-valdezzz.github.io/robotframework-request-reporter/es/examples/report.html)
 
 
 [![PyPI](https://img.shields.io/pypi/v/robotframework-request-reporter?logo=pypi)](https://pypi.org/project/robotframework-request-reporter/)

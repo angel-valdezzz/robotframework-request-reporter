@@ -18,7 +18,7 @@ Distribuidor 1087,1087,AGENTE
 
 ## Suite
 
-```robotframework
+```robotframework hl_lines="4-5 18-20 22-23"
 *** Settings ***
 Library          RequestsLibrary
 Library          RequestReporter

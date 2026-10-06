@@ -3,7 +3,7 @@
 Guarda este ejemplo como `tests/distributor.robot`. Sustituye la URL ficticia por
 la de tu servicio, o utiliza el [ejemplo ejecutable con API local](https://github.com/angel-valdezzz/robotframework-api-testing/tree/main).
 
-```robotframework
+```robotframework hl_lines="12-14 22-25"
 *** Settings ***
 Library    RequestsLibrary
 Library    RequestReporter
@@ -50,7 +50,7 @@ Si primero obtienes un token y luego consultas un distribuidor, captura cada
 response y conserva ambos IDs. Usa el ID correspondiente en cada `Assert`.
 No se asume un “último request” para asociar las assertions.
 
-```robotframework
+```robotframework hl_lines="6-8 10"
 *** Keywords ***
 Obtener token
     VAR    &{form}    grant_type=client_credentials    client_secret=${CLIENT_SECRET}
@@ -89,7 +89,7 @@ Para asociar explícitamente un timeout o error de conexión con su operación, 
 el intento dentro de una keyword de servicio. Esta keyword no ejecuta HTTP ni cambia
 el resultado del test: propaga el fallo después de registrar la evidencia.
 
-```robotframework
+```robotframework hl_lines="10-11 14-16"
 *** Settings ***
 Library    RequestsLibrary
 Library    RequestReporter
