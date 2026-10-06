@@ -88,3 +88,7 @@ English by default. Select Spanish at import; case names, payloads and messages 
 *** Settings ***
 Library    RequestReporter    language=es
 ```
+
+## Report branding
+
+Optional institution name, local logo and accessible brand colors are free. See the user guide for `brand_config` and the executable `examples/brand.json` configuration. Existing imports and capture keywords remain compatible.

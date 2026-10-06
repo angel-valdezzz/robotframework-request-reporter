@@ -1,21 +1,28 @@
 """Render standalone HTML, with a stable JSON payload and no external assets."""
 
-import base64
 import json
 import re
 from dataclasses import asdict
 from importlib.resources import files
 from pathlib import Path
+from typing import Any
 
 from jinja2 import Environment, select_autoescape
 from markupsafe import Markup
 
+from .branding import load_branding
 from .i18n import translator
 from .models import Case
 from .redaction import Redactor
 
 
-def write_report(case: Case, directory: Path, redactor: Redactor, language: str = "en") -> Path:
+def write_report(
+    case: Case,
+    directory: Path,
+    redactor: Redactor,
+    language: str = "en",
+    brand_config: str | Path | dict[str, Any] | None = None,
+) -> Path:
     t = translator(language)
     directory.mkdir(parents=True, exist_ok=True)
     stem = re.sub(r"[^\w.-]+", "_", case.name, flags=re.UNICODE).strip("._")[:130] or "case"
@@ -42,9 +49,8 @@ def write_report(case: Case, directory: Path, redactor: Redactor, language: str 
     )
     # Final cleaning also removes secrets learned in subsequent requests.
     payload = redactor.clean(asdict(case))
-    logo_data = "data:image/svg+xml;base64," + base64.b64encode(
-        files("request_reporter").joinpath("assets/logo.svg").read_bytes()
-    ).decode("ascii")
+    branding = load_branding(brand_config)
+    logo_data = branding["logo_data"]
     from . import __version__
 
     prefix = "Generated with" if language == "en" else "Generado con"
@@ -52,6 +58,7 @@ def write_report(case: Case, directory: Path, redactor: Redactor, language: str 
         template.render(
             case=payload,
             logo_data=logo_data,
+            branding=branding,
             language=language,
             t=t,
             footer=f"{prefix} Request Reporter · v{__version__}",

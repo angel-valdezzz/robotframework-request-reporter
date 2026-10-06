@@ -4,6 +4,8 @@
 from collections.abc import Callable
 
 ES = {
+    "Ended": "Fin",
+    "Timezone": "Zona horaria",
     "Test report": "Reporte de prueba",
     "Switch color theme": "Cambiar tema",
     "Light / Dark": "Claro / Oscuro",
