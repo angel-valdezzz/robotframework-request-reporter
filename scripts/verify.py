@@ -14,6 +14,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
+    subprocess.run(
+        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_*.py"],
+        cwd=ROOT,
+        check=True,
+    )
     output = ROOT / "results" / "acceptance"
     if output.exists():
         shutil.rmtree(output)
@@ -86,10 +91,35 @@ def main() -> None:
         if data["name"] == "Handled error then unhandled error":
             assert len(errors) == 1
             assert errors[0]["message"] == "Unhandled failure must appear"
+    from request_reporter.models import Case, Exchange, ExecutionError, RequestError, Validation
+    from request_reporter.redaction import Redactor
+    from request_reporter.render import write_report
+
+    spanish = output / "cases-es"
+    spanish.mkdir()
+    for path in reports:
+        payload = json.loads(
+            re.search(
+                r'<script type="application/json" id="case-data">(.*?)</script>',
+                path.read_text(),
+                re.DOTALL,
+            )[1]
+        )
+        payload["exchanges"] = [
+            Exchange(
+                **{**exchange, "validations": [Validation(**v) for v in exchange["validations"]]}
+            )
+            for exchange in payload["exchanges"]
+        ]
+        payload["execution_errors"] = [ExecutionError(**e) for e in payload["execution_errors"]]
+        payload["request_errors"] = [RequestError(**e) for e in payload["request_errors"]]
+        rendered = write_report(Case(**payload), spanish, Redactor("", ""), "es")
+        rendered.rename(spanish / path.name)
     failing = next(p for p in reports if p.name == "Failing_distributor.html")
     demo = ROOT / "build" / "report.html"
     demo.parent.mkdir(exist_ok=True)
     shutil.copyfile(failing, demo)
+    shutil.copyfile(spanish / failing.name, ROOT / "build" / "report.es.html")
     print("Verified 19 Robot cases, assertion/execution errors, DataDriver and redaction.")
 
 

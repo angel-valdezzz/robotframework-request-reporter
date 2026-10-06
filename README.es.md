@@ -11,6 +11,13 @@
 
 [Manual de usuario](https://angel-valdezzz.github.io/robotframework-request-reporter/es/) · [Referencia de keywords](https://angel-valdezzz.github.io/robotframework-request-reporter/es/keywords/) · [PyPI](https://pypi.org/project/robotframework-request-reporter/) · [Ejemplos visuales](https://angel-valdezzz.github.io/robotframework-request-reporter/es/examples/report.html)
 
+
+[![PyPI](https://img.shields.io/pypi/v/robotframework-request-reporter?logo=pypi)](https://pypi.org/project/robotframework-request-reporter/)
+![Python](https://img.shields.io/pypi/pyversions/robotframework-request-reporter?logo=python)
+![Robot Framework](https://img.shields.io/badge/Robot_Framework-compatible-00A6A6?logo=robotframework)
+[![License](https://img.shields.io/github/license/angel-valdezzz/robotframework-request-reporter)](LICENSE)
+[![CI](https://github.com/angel-valdezzz/robotframework-request-reporter/actions/workflows/ci.yml/badge.svg)](https://github.com/angel-valdezzz/robotframework-request-reporter/actions/workflows/ci.yml)
+
 ## Funcionalidades
 
 - Varios intercambios HTTP capturados y vinculados con assertions ejecutadas.
@@ -72,3 +79,12 @@ Envía los cambios mediante un pull request con verificaciones aprobadas. Actual
 ## Licencia
 
 Este repositorio todavía no incluye un archivo de licencia.
+
+## Idioma del reporte
+
+Inglés por defecto. Selecciona español al importar; los nombres, payloads y mensajes conservan su contenido.
+
+```robotframework
+*** Settings ***
+Library    RequestReporter    language=es
+```

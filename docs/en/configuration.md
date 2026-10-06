@@ -14,7 +14,7 @@ Library    RequestReporter
 | Parameter | Behavior |
 | --- | --- |
 | `output_dir` | Defaults to `${OUTPUT DIR}/cases`. |
-| `language` | Only `en` is supported for the report UI; test names and labels retain their language. |
+| `language` | `en` (default) and `es` are supported for the report UI; test names and labels retain their language. |
 | `redact_headers` | Comma-separated, case-insensitive names. Replaces the default list. |
 | `redact_body_fields` | JSON/form/query fields, including nested fields. Replaces the default list. |
 

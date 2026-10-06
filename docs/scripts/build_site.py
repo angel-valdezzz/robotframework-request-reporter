@@ -24,6 +24,7 @@ def main() -> None:
     examples = ROOT / "docs" / "examples"
     examples.mkdir(exist_ok=True)
     shutil.copyfile(demo, examples / "report.html")
+    shutil.copyfile(ROOT / "build/report.es.html", examples / "report.es.html")
     # Remove the retired demo even when rebuilding an existing working directory.
     (examples / "skipped.html").unlink(missing_ok=True)
     shutil.copyfile(

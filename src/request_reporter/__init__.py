@@ -36,7 +36,7 @@ from .models import Case, Exchange, ExecutionError, RequestError, Validation
 from .redaction import Redactor
 from .render import write_report
 
-__version__ = "0.5.1"
+__version__ = "0.6.0"
 _HEADERS = "Authorization,Proxy-Authorization,Cookie,Set-Cookie,X-API-Key"
 _FIELDS = "access_token,refresh_token,client_secret,password,token,api_key"
 
@@ -81,7 +81,7 @@ class RequestReporter:
         | Argument | Meaning |
         | --- | --- |
         | output_dir | Report directory; default is Robot's OUTPUT DIR/cases. |
-        | language | Interface language. This version supports `en` only. |
+        | language | Interface language. `en` (default) or `es`. |
         | redact_headers | Comma-separated header names; matched case-insensitively. |
         | redact_body_fields | Comma-separated JSON/form/query field names. |
 
@@ -94,8 +94,9 @@ class RequestReporter:
         Binary responses are represented as a byte-count summary. Uploaded files and
         multipart request bodies are summarized instead of embedded.
         """
-        if language != "en":
-            raise ValueError("Only language=en is supported in this version.")
+        if language not in {"en", "es"}:
+            raise ValueError("INVALID_LANGUAGE: expected en or es")
+        self.language = language
         self.ROBOT_LIBRARY_LISTENER = self
         self.output_dir = output_dir
         self.redact_headers = redact_headers
@@ -155,7 +156,7 @@ class RequestReporter:
             Path(BuiltIn().get_variable_value("${OUTPUT DIR}", ".")) / "cases"
         )
         try:
-            path = write_report(case, Path(output), self.redactor)
+            path = write_report(case, Path(output), self.redactor, self.language)
             logger.info(f"API case report: {path}")
         except (OSError, ValueError) as error:
             result.status = "FAIL"
