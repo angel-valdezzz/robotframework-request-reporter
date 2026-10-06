@@ -88,3 +88,7 @@ Inglés por defecto. Selecciona español al importar; los nombres, payloads y me
 *** Settings ***
 Library    RequestReporter    language=es
 ```
+
+## Marca del reporte
+
+El nombre institucional, logo local y colores de marca accesibles son opcionales y gratuitos. Consulta `brand_config` en la guía y la configuración ejecutable `examples/brand.json`. Los imports y keywords de captura existentes siguen siendo compatibles.

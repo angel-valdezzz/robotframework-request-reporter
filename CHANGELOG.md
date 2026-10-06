@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0
+
+- Implement the approved responsive report design with consistent navigation and theme controls.
+- Add free optional institution branding through `brand_config`, with embedded local logos and validated palettes.
+- Preserve existing capture and assertion APIs, redaction and offline reports.
+- Show end time and timezone; open the first request chronologically and preserve failure deep links.
+
+
 ## 0.6.1
 
 - Improve assertion cards, long-content wrapping and responsive spacing.

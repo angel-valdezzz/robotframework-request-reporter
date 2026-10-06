@@ -1,11 +1,11 @@
 [project]
 name = "robotframework-request-reporter"
-version = "0.6.1"
+version = "0.7.0"
 description = "Standalone HTML API evidence reports for each Robot Framework test case."
 authors = [{name = "Angel Molina"}]
 readme = "README.md"
 requires-python = ">=3.12,<4"
-dependencies = ["robotframework>=7.5,<8", "requests>=2.32,<3", "jinja2>=3.1.6,<4"]
+dependencies = ["robotframework>=7.5,<8", "requests>=2.32,<3", "jinja2>=3.1.6,<4", "pillow>=11,<14"]
 keywords = ["robotframework", "api", "report", "requests"]
 classifiers = ["Framework :: Robot Framework :: Library", "Programming Language :: Python :: 3", "Development Status :: 3 - Alpha"]
 

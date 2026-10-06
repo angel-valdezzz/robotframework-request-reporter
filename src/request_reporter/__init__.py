@@ -36,7 +36,7 @@ from .models import Case, Exchange, ExecutionError, RequestError, Validation
 from .redaction import Redactor
 from .render import write_report
 
-__version__ = "0.6.1"
+__version__ = "0.7.0"
 _HEADERS = "Authorization,Proxy-Authorization,Cookie,Set-Cookie,X-API-Key"
 _FIELDS = "access_token,refresh_token,client_secret,password,token,api_key"
 
@@ -75,6 +75,7 @@ class RequestReporter:
         language: str = "en",
         redact_headers: str = _HEADERS,
         redact_body_fields: str = _FIELDS,
+        brand_config: str | None = None,
     ) -> None:
         """Configure the reporter without creating files during import or Libdoc.
 
@@ -82,10 +83,12 @@ class RequestReporter:
         | --- | --- |
         | output_dir | Report directory; default is Robot's OUTPUT DIR/cases. |
         | language | Interface language. `en` (default) or `es`. |
+        | brand_config | Optional local JSON file with institution name, logo and palette. |
         | redact_headers | Comma-separated header names; matched case-insensitively. |
         | redact_body_fields | Comma-separated JSON/form/query field names. |
 
         ```robotframework
+        *** Settings ***
         Library    RequestReporter    output_dir=${OUTPUT DIR}/cases
         ```
 
@@ -96,6 +99,10 @@ class RequestReporter:
         """
         if language not in {"en", "es"}:
             raise ValueError("INVALID_LANGUAGE: expected en or es")
+        from .branding import load_branding
+
+        load_branding(brand_config)
+        self.brand_config = brand_config
         self.language = language
         self.ROBOT_LIBRARY_LISTENER = self
         self.output_dir = output_dir
@@ -150,13 +157,14 @@ class RequestReporter:
                             message=self.redactor.text(failed.message or "Keyword failed"),
                         )
                     )
+        case.ended = datetime.now(UTC).isoformat()
         case.message = self.redactor.text(result.message or "")
         case.duration_ms = round((perf_counter() - self.started_at) * 1000, 2)
         output = self.output_dir or str(
             Path(BuiltIn().get_variable_value("${OUTPUT DIR}", ".")) / "cases"
         )
         try:
-            path = write_report(case, Path(output), self.redactor, self.language)
+            path = write_report(case, Path(output), self.redactor, self.language, self.brand_config)
             logger.info(f"API case report: {path}")
         except (OSError, ValueError) as error:
             result.status = "FAIL"

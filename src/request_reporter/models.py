@@ -58,3 +58,4 @@ class Case:
     exchanges: list[Exchange] = field(default_factory=list)
     execution_errors: list[ExecutionError] = field(default_factory=list)
     request_errors: list[RequestError] = field(default_factory=list)
+    ended: str | None = None
