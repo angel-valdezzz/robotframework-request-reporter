@@ -10,7 +10,7 @@ poetry run mypy src
 poetry run python scripts/verify.py
 poetry build
 poetry run twine check dist/*
-poetry run python scripts/build_site.py
+poetry run python docs/scripts/build_site.py
 ```
 
 Tests use Robot Framework, RequestsLibrary and a loopback API. Six cases fail intentionally to verify their final status and evidence. The verifier checks expected results and fails on differences.
@@ -25,7 +25,7 @@ poetry run python -m robot.libdoc RequestReporter site/keywords/index.html
 
 Markdown and Pygments are documentation dependencies, not runtime requirements. Examples use `robotframework` fences; `[Assert]` links a keyword in Libdoc. Importing creates no files and requires no active test.
 
-For the complete bilingual site, run `poetry run python scripts/build_site.py`. English sources live in `docs/en/`, Spanish in `docs/es/`, and shared assets in `docs/assets/`. English is published at the root, Spanish under `/es/`. Keep counterpart filenames identical so the language selector retains the current page.
+For the complete bilingual site, run `poetry run python docs/scripts/build_site.py`. English sources live in `docs/en/`, Spanish in `docs/es/`, and shared assets in `docs/assets/`. English is published at the root, Spanish under `/es/`. Keep counterpart filenames identical so the language selector retains the current page.
 
 Libdoc translations live in `docs/translations/es/libdoc.json`. Update the Spanish text and its source SHA-256 when changing a docstring. The build rejects missing, extra or outdated entries. Keyword names, arguments, types and defaults remain unchanged. The native Libdoc language menu switches both controls and keyword descriptions.
 

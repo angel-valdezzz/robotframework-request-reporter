@@ -1,10 +1,11 @@
-INHERIT: mkdocs.base.yml
+INHERIT: base.yml
 site_description: Evidencia API de Robot Framework, un HTML por caso
 site_url: https://angel-valdezzz.github.io/robotframework-request-reporter/es/
-docs_dir: docs/es
-site_dir: build/site-es
+docs_dir: ../es
+site_dir: ../../build/site-es
 edit_uri: edit/main/docs/es/
 theme:
+  custom_dir: ../overrides
   language: es
   palette:
   - media: "(prefers-color-scheme: light)"

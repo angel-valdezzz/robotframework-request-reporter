@@ -63,7 +63,7 @@ poetry run ruff check .
 poetry run ruff format --check .
 poetry run mypy src
 poetry run python scripts/verify.py
-poetry run python scripts/build_site.py
+poetry run python docs/scripts/build_site.py
 poetry build
 ```
 

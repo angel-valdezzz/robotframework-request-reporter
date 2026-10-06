@@ -1,5 +1,8 @@
 name: Publish distribution
 on:
+  push:
+    branches: [main]
+    paths: [pyproject.toml]
   release:
     types: [published]
   workflow_dispatch:
@@ -9,10 +12,26 @@ jobs:
   build:
     if: github.event_name == 'release' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.version.outputs.publish }}
     steps:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Check version change on main
+        if: github.event_name == 'push'
+        id: version
+        run: |
+          python - <<'PY'
+          import os, subprocess, tomllib
+          from pathlib import Path
+          current = tomllib.loads(Path('pyproject.toml').read_text())['project']['version']
+          previous = tomllib.loads(subprocess.check_output(
+              ['git', 'show', 'HEAD^:pyproject.toml'], text=True
+          ))['project']['version']
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'publish={str(current != previous).lower()}\n')
+          PY
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
@@ -37,7 +56,7 @@ jobs:
           name: distribution
           path: dist/*
   publish:
-    if: github.event_name == 'release' && !github.event.release.prerelease
+    if: (github.event_name == 'push' && needs.build.outputs.publish == 'true') || (github.event_name == 'release' && !github.event.release.prerelease)
     needs: build
     runs-on: ubuntu-latest
     environment:

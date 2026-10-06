@@ -2,10 +2,10 @@ site_name: Request Reporter
 site_description: Evidencia API de Robot Framework, un HTML por caso
 site_url: https://angel-valdezzz.github.io/robotframework-request-reporter/
 repo_url: https://github.com/angel-valdezzz/robotframework-request-reporter
-repo_name: Request Reporter
+repo_name: RequestReporter
 copyright: Robot Framework Request Reporter · Robot Framework API evidence
 extra_javascript:
-  - assets/javascripts/external-sections.js
+  - assets/keyword-links.js
 extra_css:
   - assets/stylesheets/standard.css
   - assets/stylesheets/extra.css
@@ -14,7 +14,7 @@ theme:
   logo: assets/logo.svg
   favicon: assets/favicon.svg
   font: false
-  custom_dir: overrides
+  custom_dir: docs/overrides
   name: material
   language: en
   icon:
