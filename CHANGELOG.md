@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1
+
+- Improve assertion cards, long-content wrapping and responsive spacing.
+
 ## 0.3.1
 
 - Correct duplicate Robot Framework wording in the README displayed on PyPI.
