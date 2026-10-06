@@ -10,7 +10,7 @@ poetry run mypy src
 poetry run python scripts/verify.py
 poetry build
 poetry run twine check dist/*
-poetry run python scripts/build_site.py
+poetry run python docs/scripts/build_site.py
 ```
 
 Las pruebas usan Robot Framework, RequestsLibrary y una API en loopback. Seis casos

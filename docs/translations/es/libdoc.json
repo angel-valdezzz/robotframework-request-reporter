@@ -1,7 +1,7 @@
 {
   "introduction": {
-    "source_sha256": "013604dc811d1bf81f72bcca635f50e817d8afd305c0de03f5989aa104f4a40e",
-    "text": "Biblioteca y listener de Robot que generan un HTML autocontenido por caso."
+    "source_sha256": "76ee098f61abd25a99b82a61e9cb533768f07b3210d38d794b7572edaedf0765",
+    "text": "Genera un reporte HTML autónomo de evidencias API por caso de prueba.\n\nImporta junto con RequestsLibrary. Captura respuestas ya obtenidas y asocia validaciones con el identificador del intercambio. El listener integrado escribe los reportes al finalizar cada caso, dentro del directorio de salida de Robot.\n\n```robotframework\n*** Settings ***\nLibrary    RequestsLibrary\nLibrary    RequestReporter\n\n*** Test Cases ***\nHealth\n    ${response}=    GET    ${URL}    expected_status=anything\n    ${id}=    Capture Response    Health    ${response}\n    Assert    ${id}    HTTP status\n    ...    Should Be Equal As Integers    ${response.status_code}    200\n```\n\nConsulta [Importing] para las opciones de salida y ocultación. No envía peticiones ni modifica la política de continuación tras fallos de Robot. La ocultación afecta solo a sus reportes HTML, no a los logs propios de Robot o RequestsLibrary."
   },
   "init:__init__": {
     "source_sha256": "7bd65fcce5cab3924af2bb7ee74e5241daf8edecd116f6133c7ad0d31748984b",

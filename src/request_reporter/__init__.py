@@ -36,14 +36,36 @@ from .models import Case, Exchange, ExecutionError, RequestError, Validation
 from .redaction import Redactor
 from .render import write_report
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 _HEADERS = "Authorization,Proxy-Authorization,Cookie,Set-Cookie,X-API-Key"
 _FIELDS = "access_token,refresh_token,client_secret,password,token,api_key"
 
 
 @library(scope="GLOBAL", version=__version__, doc_format="MARKDOWN", auto_keywords=False)
 class RequestReporter:
-    """Robot library and listener for one self-contained HTML per test case."""
+    """Generate one self-contained HTML API evidence report per test case.
+
+    Import alongside RequestsLibrary. Capture completed responses and associate
+    validations with the returned exchange identifier. The built-in listener
+    writes reports when each test finishes, under Robot's output directory.
+
+    ```robotframework
+    *** Settings ***
+    Library    RequestsLibrary
+    Library    RequestReporter
+
+    *** Test Cases ***
+    Health
+        ${response}=    GET    ${URL}    expected_status=anything
+        ${id}=    Capture Response    Health    ${response}
+        Assert    ${id}    HTTP status
+        ...    Should Be Equal As Integers    ${response.status_code}    200
+    ```
+
+    See [Importing] for output and redaction options. This library does not send
+    requests or change Robot's failure continuation policy. Redaction applies
+    to its HTML reports only, not Robot's or RequestsLibrary's own logs.
+    """
 
     ROBOT_LISTENER_API_VERSION = 3
 
