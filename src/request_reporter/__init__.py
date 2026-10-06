@@ -36,7 +36,7 @@ from .models import Case, Exchange, ExecutionError, RequestError, Validation
 from .redaction import Redactor
 from .render import write_report
 
-__version__ = "0.6.0"
+__version__ = "0.6.1"
 _HEADERS = "Authorization,Proxy-Authorization,Cookie,Set-Cookie,X-API-Key"
 _FIELDS = "access_token,refresh_token,client_secret,password,token,api_key"
 
