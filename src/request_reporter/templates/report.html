@@ -13,14 +13,17 @@
 .request-line{display:flex;align-items:center;gap:12px}.request-line code{flex:1;min-width:0;font-size:13px}.request-result{display:flex;align-items:center;gap:12px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.copy-url{flex-shrink:0;display:grid;place-items:center}.url-status{margin-top:8px}.params-heading{display:flex;align-items:center;gap:10px;margin-bottom:12px}@media(max-width:700px){.request-line{flex-wrap:wrap}.request-line code{flex-basis:70%}}
 
 header h1{overflow-wrap:anywhere;max-width:100%}.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:16px 0}.info-grid dt{color:var(--muted);font-size:12px}.info-grid dd{margin:4px 0 0;overflow-wrap:anywhere}.summary-requests{margin-top:18px}.summary-requests table{min-width:640px}.summary-requests button{text-align:left;color:var(--accent)}.body-tools{margin:12px 0}.body-tools input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--bg);color:var(--text);font:inherit}input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.json-tree{font:13px/1.65 ui-monospace,monospace;background:var(--bg);padding:14px;border-radius:8px;overflow-wrap:anywhere}.json-node{margin-left:16px}.json-tree summary{cursor:pointer;padding:2px}.json-leaf{margin-left:18px;white-space:pre-wrap}.json-match{background:var(--skip-bg);color:var(--text)}.request-result{justify-content:space-between}.request-result .response-facts{display:flex;gap:12px;align-items:center}.assertion-filters{margin-bottom:14px}@media(max-width:700px){.info-grid{grid-template-columns:1fr}.summary-panel{padding:14px}}
+.report-brand{display:flex;align-items:center;gap:10px;color:var(--accent);font-size:14px;font-weight:750;margin-bottom:18px}.report-brand img{width:36px;height:36px;background:white;border-radius:9px;padding:3px}
+:root{--accent:#086879;--soft:#eef8f7}:root[data-theme=dark]{--accent:#70e3d3;--soft:#193c43}
 </style>
 <script>
 (()=>{let theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';try{const stored=localStorage.getItem('api-case-reporter-theme');if(stored==='light'||stored==='dark')theme=stored;}catch(error){}document.documentElement.dataset.theme=theme;})();
 </script>
+<link rel="icon" type="image/svg+xml" href="{{ logo_data }}">
 </head>
 <body>
 <main>
-<header><div class="row"><h1>{{ case.name }}</h1><span class="badge {{ case.status|lower }}">{{ case.status }}</span><button type="button" id="theme-toggle" class="theme-control" aria-label="Switch color theme">Light / Dark</button></div><div class="small"><time id="started" datetime="{{ case.started }}">{{ case.started }}</time></div></header>
+<header><div class="report-brand"><img src="{{ logo_data }}" alt="" width="36" height="36"><span>Request Reporter</span></div><div class="row"><h1>{{ case.name }}</h1><span class="badge {{ case.status|lower }}">{{ case.status }}</span><button type="button" id="theme-toggle" class="theme-control" aria-label="Switch color theme">Light / Dark</button></div><div class="small"><time id="started" datetime="{{ case.started }}">{{ case.started }}</time></div></header>
 <nav class="sections" aria-label="Report sections"><button data-section="summary" aria-pressed="true">Summary</button><button data-section="requests" aria-pressed="false">Requests</button><button data-section="failures" aria-pressed="false">Failures <span id="failure-count"></span></button></nav>
 <section id="section-summary" aria-label="Summary">
 <div class="stats">

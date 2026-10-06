@@ -1,6 +1,11 @@
 # Evidencia API, un archivo por caso
 
 <div class="hero" markdown>
+<div class="project-brand">
+<img class="project-brand-light" src="assets/logo-wordmark.svg" alt="Request Reporter">
+<img class="project-brand-dark" src="assets/logo-wordmark-dark.svg" alt="Request Reporter">
+</div>
+
 
 **Del test de Robot al archivo que adjuntas en Jira.**
 

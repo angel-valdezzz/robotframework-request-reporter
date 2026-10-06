@@ -1,0 +1,13 @@
+# Request Reporter identity
+
+Version 1: rounded geometry, retaining the project's palette.
+
+- `logo.svg`: transparent symbol, used in navigation and portable reports.
+- `favicon.svg`: compact symbol on a white tile for light/dark browser tabs.
+- `logo-wordmark.svg` / `logo-wordmark-dark.svg`: outlined lettering, no font download required.
+
+Primary #086879, secondary #2544A5, accent #5BE0D0.
+
+The wordmark lettering uses DejaVu Sans Bold (Bitstream Vera/DejaVu license; see FONT-LICENSE.txt).
+
+Dark wordmarks use lighter shades of the same hues for contrast.

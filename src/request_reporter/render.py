@@ -1,5 +1,6 @@
 """Render standalone HTML, with a stable JSON payload and no external assets."""
 
+import base64
 import re
 from dataclasses import asdict
 from importlib.resources import files
@@ -35,5 +36,8 @@ def write_report(case: Case, directory: Path, redactor: Redactor) -> Path:
     )
     # Final cleaning also removes secrets learned in subsequent requests.
     payload = redactor.clean(asdict(case))
-    target.write_text(template.render(case=payload), encoding="utf-8")
+    logo_data = "data:image/svg+xml;base64," + base64.b64encode(
+        files("request_reporter").joinpath("assets/logo.svg").read_bytes()
+    ).decode("ascii")
+    target.write_text(template.render(case=payload, logo_data=logo_data), encoding="utf-8")
     return target

@@ -15,7 +15,7 @@ Documentation = "https://angel-valdezzz.github.io/robotframework-request-reporte
 
 [tool.poetry]
 packages = [{include = "request_reporter", from = "src"}, {include = "RequestReporter.py", from = "src"}, {include = "APICaseReporter", from = "src"}]
-include = [{path = "src/request_reporter/templates/*.html", format = ["sdist", "wheel"]}]
+include = [{path = "src/request_reporter/templates/*.html", format = ["sdist", "wheel"]}, {path = "src/request_reporter/assets/*", format = ["sdist", "wheel"]}]
 
 [tool.poetry.group.dev.dependencies]
 robotframework-requests = "0.9.7"
