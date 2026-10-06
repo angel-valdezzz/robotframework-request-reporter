@@ -91,3 +91,6 @@ No se incluye impresión/PDF, gráficas, Results ni logs. Los folios permanecen 
 [Ejemplo aprobado sin metadatos](examples/passing.html){ .md-button }
 
 Los bodies de texto/XML completos se pueden plegar en Formatted y desplegar de nuevo. Raw y la copia conservan todo el texto. HTTP requests cuenta responses capturadas e intentos fallidos registrados; estos últimos aparecen con su operación en Failures → Failed HTTP attempts.
+
+
+[Spanish report / Reporte en español](examples/report.es.html){ target="_blank" rel="noopener noreferrer" }

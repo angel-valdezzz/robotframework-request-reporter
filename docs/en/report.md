@@ -70,3 +70,6 @@ There is no print/PDF, charts, Results or logs section. Business identifiers rem
 [Passing example without metadata](examples/passing.html){ .md-button }
 
 Complete text/XML bodies can be collapsed and expanded in Formatted. Raw and copying preserve all text. HTTP requests counts captured responses and explicitly recorded failed attempts; those attempts appear with their operation under Failures → Failed HTTP attempts.
+
+
+[Spanish report / Reporte en español](examples/report.es.html){ target="_blank" rel="noopener noreferrer" }

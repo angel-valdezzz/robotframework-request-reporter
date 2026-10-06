@@ -14,7 +14,7 @@ Library    RequestReporter
 | Parámetro | Comportamiento |
 |---|---|
 | `output_dir` | Por defecto, `${OUTPUT DIR}/cases`. |
-| `language` | Solo `en` para la interfaz del reporte; los nombres y labels conservan el idioma del test. |
+| `language` | `en` por defecto o `es` para la interfaz del reporte; los nombres y labels conservan el idioma del test. |
 | `redact_headers` | Nombres separados por comas; no distingue mayúsculas. Reemplaza la lista predeterminada. |
 | `redact_body_fields` | Campos JSON/form/query, también anidados. Reemplaza la lista predeterminada. |
 
