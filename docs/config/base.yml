@@ -5,8 +5,11 @@ repo_url: https://github.com/angel-valdezzz/robotframework-request-reporter
 repo_name: RequestReporter
 copyright: Robot Framework Request Reporter · Robot Framework API evidence
 extra_javascript:
+  - assets/mermaid.min.js
+  - assets/landing.js
   - assets/keyword-links.js
 extra_css:
+  - assets/stylesheets/landing.css
   - assets/stylesheets/standard.css
   - assets/stylesheets/extra.css
   - assets/stylesheets/visual.css
@@ -20,6 +23,16 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.instant.prefetch
+    - navigation.instant.preview
+    - navigation.tracking
+    - navigation.path
+    - toc.follow
+    - content.code.select
+    - content.tooltips
+    - content.tabs.link
     - navigation.tabs
     - navigation.sections
     - navigation.indexes
@@ -47,10 +60,16 @@ theme:
 plugins:
   - search
 markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - admonition
   - attr_list
   - md_in_html
   - tables
+  - abbr
+  - footnotes
+  - pymdownx.snippets
   - toc:
       permalink: true
   - pymdownx.details
@@ -66,6 +85,13 @@ markdown_extensions:
       alternate_style: true
 
 extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/angel-valdezzz/robotframework-request-reporter
+      name: Request Reporter on GitHub
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/robotframework-request-reporter/
+      name: Request Reporter on PyPI
   alternate:
     - name: English
       link: https://angel-valdezzz.github.io/robotframework-request-reporter/

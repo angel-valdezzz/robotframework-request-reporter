@@ -1,3 +1,8 @@
+---
+tags:
+  - Configuración
+---
+
 # Configuración
 
 La configuración se proporciona al importar la librería. No necesita un alias.

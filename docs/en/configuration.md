@@ -1,3 +1,8 @@
+---
+tags:
+  - Configuration
+---
+
 # Configuration
 
 Configure the library when importing it. No alias is required.

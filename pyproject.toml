@@ -27,7 +27,7 @@ twine = ">=6,<7"
 robotframework-robocop = "^9.1.0"
 
 [tool.poetry.group.docs.dependencies]
-mkdocs-material = ">=9.6,<10"
+mkdocs-material = {version = ">=9.6,<10", extras = ["imaging"]}
 markdown = ">=3.7,<4"
 pygments = ">=2.19,<3"
 

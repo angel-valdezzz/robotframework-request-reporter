@@ -1,21 +1,26 @@
-# Evidencia API, un archivo por caso
+---
+template: home.html
+title: Request Reporter
+description: Convierte intercambios API y validaciones en un reporte portable. Cada petición, respuesta y resultado, juntos.
+---
 
-<div class="hero" markdown>
-<div class="project-brand">
-<img class="project-brand-light" src="assets/logo-wordmark.svg" alt="Request Reporter">
-<img class="project-brand-dark" src="assets/logo-wordmark-dark.svg" alt="Request Reporter">
-</div>
+<div id="overview"></div>
 
+## Captura. Valida. Comparte.
 
-**Del test de Robot al archivo que adjuntas en Jira.**
+<div class="grid cards" markdown>
 
-Robot Framework Request Reporter genera un HTML independiente con las requests, responses y
-assertions de cada caso. El nombre y el estado vienen directamente de Robot.
-El reporte se abre sin conexión y no necesita un servidor.
+- **01 · Capture Response**
 
-[Empezar](installation.md){ .md-button .md-button--primary }
-[Ver el reporte](examples/report.html){ .md-button }
-[Keywords](keywords/index.html){ .md-button }
+    Conserva el intercambio HTTP junto a su caso de prueba.
+
+- **02 · Assert**
+
+    Asocia cada validación con su petición correspondiente.
+
+- **03 · HTML**
+
+    Comparte un reporte independiente, listo para abrir sin conexión.
 
 </div>
 

@@ -1,3 +1,8 @@
+---
+tags:
+  - Uso
+---
+
 # Primer caso y varios requests
 
 Guarda este ejemplo como `tests/distributor.robot`. Sustituye la URL ficticia por

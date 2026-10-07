@@ -1,3 +1,8 @@
+---
+tags:
+  - Uso
+---
+
 # Leer el reporte
 
 [Explorar el ejemplo en vivo](examples/report.html){ .md-button .md-button--primary }

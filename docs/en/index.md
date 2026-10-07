@@ -1,19 +1,26 @@
-# API evidence, one file per case
+---
+template: home.html
+title: Request Reporter
+description: Turn API exchanges and assertions into a portable report. Every request, response and result, together.
+---
 
-<div class="hero" markdown>
-<div class="project-brand">
-<img class="project-brand-light" src="assets/logo-wordmark.svg" alt="Request Reporter">
-<img class="project-brand-dark" src="assets/logo-wordmark-dark.svg" alt="Request Reporter">
-</div>
+<div id="overview"></div>
 
+## Capture. Validate. Share.
 
-**From a Robot test to a file you can attach to Jira.**
+<div class="grid cards" markdown>
 
-Request Reporter creates a standalone HTML with each case's requests, responses and assertions. Robot supplies the name and status. Open the report offline without a server.
+- **01 · Capture Response**
 
-[Get started](installation.md){ .md-button .md-button--primary }
-[Keyword reference](keywords/index.html){ .md-button }
-[Visual examples](examples/report.html){ .md-button }
+    Keep the HTTP exchange alongside its test case.
+
+- **02 · Assert**
+
+    Associate each validation with the corresponding request.
+
+- **03 · HTML**
+
+    Share a standalone report, ready to open offline.
 
 </div>
 

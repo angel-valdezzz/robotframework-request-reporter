@@ -1,3 +1,8 @@
+---
+tags:
+  - Usage
+---
+
 # Troubleshooting
 
 ??? question "A request is missing"

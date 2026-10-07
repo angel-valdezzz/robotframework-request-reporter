@@ -1,3 +1,8 @@
+---
+tags:
+  - Integration
+---
+
 # DataDriver cases
 
 DataDriver generates Robot tests from each row. The listener creates one HTML per generated test, with its own name, requests and assertions.
