@@ -37,10 +37,10 @@ description: Turn API exchanges and assertions into a portable report. Every req
 
 ```mermaid
 flowchart TD
-    A[RequestsLibrary: ejecutar petición] --> B[Capture Response: guardar response]
-    B --> C[Assert: registrar assertions]
-    C --> D[Listener: finalizar caso]
-    D --> E[HTML independiente para Jira]
+    A[RequestsLibrary: execute request] --> B[Capture Response: store response]
+    B --> C[Assert: record assertions]
+    C --> D[Listener: finish case]
+    D --> E[Standalone HTML for Jira]
 ```
 
 Only explicitly captured exchanges are included. Importing the library registers its listener; no CLI listener argument or generation keyword is required.
