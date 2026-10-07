@@ -1,0 +1,33 @@
+{% extends "main.html" %}
+{% block tabs %}
+{{ super() }}
+{% set es = config.theme.language == 'es' %}
+<section class="er-hero" aria-labelledby="er-headline" data-er-hero data-lang="{{ config.theme.language }}" data-accent="132,186,255" data-secondary="127,232,221" style="--scene-accent:#84baff;--scene-secondary:#7fe8dd">
+  <canvas class="er-field" aria-hidden="true"></canvas>
+  <div class="er-hero-inner">
+    <div class="er-hero-copy">
+      <div class="er-kicker">PYTHON <span> / </span> ROBOT FRAMEWORK</div>
+      <h1 id="er-headline">{{ 'Cada petición.<br><em>Una respuesta clara.</em>' if es else 'Every request.<br><em>A clear answer.</em>' }}</h1>
+      <p>{{ 'Convierte intercambios API y validaciones en un reporte portable. Cada petición, respuesta y resultado, juntos.' if es else 'Turn API exchanges and assertions into a portable report. Every request, response and result, together.' }}</p>
+      <div class="er-actions">
+        <a class="er-action er-action-primary" href="{{ 'installation/' | url }}">{{ 'Comenzar' if es else 'Get started' }} <span aria-hidden="true">→</span></a>
+        <a class="er-action er-action-secondary" href="{{ ('examples/report.es.html' if es else 'examples/report.html') | url }}">{{ 'Explorar el ejemplo' if es else 'Explore the example' }} <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="er-facts"><span>HTTP · Assertions · HTML</span><span>{{ 'Abierto y gratuito' if es else 'Open source & free' }}</span></div>
+    </div>
+    <div class="er-report-scene" aria-label="{{ 'Animación ilustrativa con datos ficticios' if es else 'Illustrative animation with fictitious data' }}">
+      <div class="er-scene-caption"><span class="er-live-dot"></span>{{ 'DE LOS DATOS AL RESULTADO' if es else 'FROM INPUT TO INSIGHT' }}</div>
+      <div class="er-preview">
+        <div class="er-scene-title"><img src="{{ 'assets/logo.svg' | url }}" alt=""><strong>Request Reporter</strong></div>
+        <div class="er-preview-body"><div class="er-scene-row er-assemble" data-stage="1"><strong>GET</strong> <code>/api/customers/1042</code><div class="er-muted">{{ 'Capture the exchange' if not es else 'Captura el intercambio' }}</div></div>
+<div class="er-scene-row er-assemble" data-stage="2"><strong class="er-value">200 OK</strong><br><code>{"id": 1042, "active": true}</code></div>
+<div class="er-scene-row er-assemble" data-stage="3"><span class="er-value">✓</span> {{ 'HTTP status' if not es else 'Estado HTTP' }} · 200<br><span class="er-value">✓</span> {{ 'Customer is active' if not es else 'Cliente activo' }}</div>
+<div class="er-scene-row er-assemble" data-stage="4"><strong>HTML</strong> · {{ 'One case. Every exchange.' if not es else 'Un caso. Cada intercambio.' }}</div></div>
+      </div>
+      <div class="er-scene-footer"><span>{{ 'Ilustración · datos ficticios' if es else 'Illustration · fictitious data' }}</span><div class="er-animation-controls" hidden><button type="button" data-er-pause aria-pressed="false">{{ 'Pausar' if es else 'Pause' }}</button><button type="button" data-er-replay>{{ 'Repetir' if es else 'Replay' }}</button></div></div>
+    </div>
+  </div>
+  <a class="er-scroll" href="#overview">{{ 'Descubre lo que puedes crear' if es else 'Discover what you can create' }} <span aria-hidden="true">↓</span></a>
+</section>
+{% endblock %}
+{% block content %}<div class="er-home-content">{{ page.content }}</div>{% endblock %}

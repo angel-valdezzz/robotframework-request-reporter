@@ -1,3 +1,8 @@
+---
+tags:
+  - Uso
+---
+
 # Instalación
 
 Necesitas Python 3.12+ y Robot Framework 7.5+ dentro de la rama 7.x.

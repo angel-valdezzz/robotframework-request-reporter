@@ -1,3 +1,8 @@
+---
+tags:
+  - Desarrollo
+---
+
 # Desarrollo y publicación
 
 ## Calidad y aceptación

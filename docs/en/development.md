@@ -1,3 +1,8 @@
+---
+tags:
+  - Development
+---
+
 # Development and publishing
 
 ## Quality and acceptance

@@ -12,6 +12,11 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def main() -> None:
+    for config_dir in (ROOT, ROOT / "docs/config"):
+        fonts = config_dir / ".cache/plugin/social/fonts/DejaVu Sans"
+        fonts.mkdir(parents=True, exist_ok=True)
+        for source in (ROOT / "docs/assets/fonts").glob("*.ttf"):
+            shutil.copyfile(source, fonts / source.name)
     demo = ROOT / "build" / "report.html"
     if not demo.is_file():
         subprocess.run([sys.executable, str(ROOT / "scripts" / "verify.py")], check=True)

@@ -1,3 +1,8 @@
+---
+tags:
+  - Integración
+---
+
 # Casos con DataDriver
 
 DataDriver genera tests de Robot a partir de cada fila. El listener crea un HTML

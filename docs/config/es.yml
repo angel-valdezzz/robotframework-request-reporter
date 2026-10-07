@@ -25,8 +25,18 @@ theme:
 plugins:
   - search:
       lang: es
+  - tags
+  - social:
+      cards_layout_options:
+        background_color: "#101629"
+        color: "#eef2ff"
+        font_family: DejaVu Sans
+  - privacy:
+      assets_exclude:
+        - unpkg.com/mermaid@11/*
 nav:
   - Inicio: index.md
+  - Explorar por tema: topics.md
   - Manual de usuario:
       - Instalación: installation.md
       - Primer caso y varios requests: usage.md

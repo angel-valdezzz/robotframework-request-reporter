@@ -1,3 +1,8 @@
+---
+tags:
+  - Uso
+---
+
 # Solución de problemas
 
 ??? question "No aparece una request"

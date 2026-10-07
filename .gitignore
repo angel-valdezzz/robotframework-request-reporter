@@ -30,3 +30,6 @@ docs/en/examples/*.html
 docs/es/examples/*.html
 
 docs/examples/report.es.html
+
+.cache/
+docs/config/.cache/

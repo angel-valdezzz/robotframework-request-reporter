@@ -1,3 +1,8 @@
+---
+tags:
+  - Usage
+---
+
 # First case and multiple requests
 
 Save this as `tests/distributor.robot`. Replace the fictitious URL with your service, or use the [executable local API example](https://github.com/angel-valdezzz/robotframework-api-testing/tree/main).
