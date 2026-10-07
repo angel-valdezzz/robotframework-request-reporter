@@ -8,7 +8,9 @@ permissions:
   contents: read
 jobs:
   landing:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    env:
+      POETRY_REQUESTS_TIMEOUT: "120"
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
