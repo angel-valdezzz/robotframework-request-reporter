@@ -68,6 +68,7 @@ def main() -> None:
                     page.locator("[data-er-pause]").click()
                     assert page.locator("[data-er-pause]").get_attribute("aria-pressed") == "true"
                     page.emulate_media(reduced_motion="reduce")
+                    page.wait_for_function("document.querySelector('[data-er-pause]').disabled")
                     assert page.locator("[data-er-pause]").is_disabled()
                     assert (
                         page.locator(".er-assemble.is-visible").count()
