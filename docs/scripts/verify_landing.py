@@ -63,9 +63,7 @@ def main() -> None:
                     assert response.ok
                     page.locator(".er-action-primary").click()
                     page.wait_for_function("!document.querySelector('[data-er-hero]')")
-                    if width < 700:
-                        page.locator('label[for="__drawer"]:visible').first.click()
-                    page.locator(".md-logo:visible").first.click()
+                    page.go_back()
                     page.locator("[data-er-pause]").wait_for(state="visible")
                     page.locator("[data-er-pause]").click()
                     assert page.locator("[data-er-pause]").get_attribute("aria-pressed") == "true"
