@@ -30,6 +30,7 @@ def main() -> None:
                     page.locator("[data-er-pause]").wait_for(state="visible")
                     assert page.locator("[data-er-hero]").get_attribute("data-lang") == lang
                     assert page.locator("h1").count() == 1
+                    assert page.locator(".er-scene-title img").bounding_box()["width"] <= 40
                     assert page.evaluate("document.documentElement.scrollWidth <= innerWidth")
                     page.locator("[data-er-pause]").click()
                     assert page.locator("[data-er-pause]").inner_text() == (
@@ -44,6 +45,8 @@ def main() -> None:
                         page.locator(".er-assemble.is-visible").count()
                         == page.locator(".er-assemble").count()
                     )
+                    page.evaluate("scrollTo(0, 0)")
+                    page.wait_for_timeout(400)
                     for scheme in ("default", "slate"):
                         page.evaluate(
                             "scheme => document.body.setAttribute('data-md-color-scheme', scheme)",
