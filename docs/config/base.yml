@@ -5,6 +5,7 @@ repo_url: https://github.com/angel-valdezzz/robotframework-request-reporter
 repo_name: RequestReporter
 copyright: Robot Framework Request Reporter · Robot Framework API evidence
 extra_javascript:
+  - assets/navigation.js?v=locale-3
   - assets/mermaid.min.js
   - assets/landing.js
   - assets/keyword-links.js
@@ -85,6 +86,7 @@ markdown_extensions:
       alternate_style: true
 
 extra:
+  scope: /robotframework-request-reporter/
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/angel-valdezzz/robotframework-request-reporter
@@ -99,3 +101,6 @@ extra:
     - name: Español
       link: https://angel-valdezzz.github.io/robotframework-request-reporter/es/
       lang: es
+
+hooks:
+  - docs/scripts/navigation.py
