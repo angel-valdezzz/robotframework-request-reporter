@@ -1,7 +1,7 @@
 ---
 template: home.html
 title: Request Reporter
-description: Turn API exchanges and assertions into a portable report. Every request, response and result, together.
+description: Turn API exchanges and assertions into a portable report.
 ---
 
 <div id="overview"></div>
@@ -23,6 +23,17 @@ description: Turn API exchanges and assertions into a portable report. Every req
     Share a standalone report, ready to open offline.
 
 </div>
+
+<section id="report-preview" class="er-real-report" aria-labelledby="report-preview-title" markdown>
+
+<h2 id="report-preview-title">The report, exactly as generated</h2>
+
+This view loads the HTML produced by the project's executable tests. Explore Summary,
+Requests and Failures here, or [open the complete report](examples/report.html).
+
+<iframe src="examples/report.html" title="Genuine Request Reporter HTML report in English" loading="lazy"></iframe>
+
+</section>
 
 ## Requirements
 

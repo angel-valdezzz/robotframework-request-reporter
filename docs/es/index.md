@@ -1,7 +1,7 @@
 ---
 template: home.html
 title: Request Reporter
-description: Convierte intercambios API y validaciones en un reporte portable. Cada petición, respuesta y resultado, juntos.
+description: Convierte intercambios API y validaciones en un reporte portable.
 ---
 
 <div id="overview"></div>
@@ -23,6 +23,17 @@ description: Convierte intercambios API y validaciones en un reporte portable. C
     Comparte un reporte independiente, listo para abrir sin conexión.
 
 </div>
+
+<section id="report-preview" class="er-real-report" aria-labelledby="report-preview-title" markdown>
+
+<h2 id="report-preview-title">El reporte, tal como se genera</h2>
+
+Esta vista carga el HTML que genera el proyecto al ejecutar sus pruebas. Puedes explorar
+Resumen, Solicitudes y Fallos aquí o [abrir el reporte completo](examples/report.es.html).
+
+<iframe src="examples/report.es.html" title="Reporte HTML real de Request Reporter en español" loading="lazy"></iframe>
+
+</section>
 
 ## Qué necesitas
 
