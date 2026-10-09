@@ -104,6 +104,7 @@ def main() -> None:
                     assert page.locator("h1").count() == 1
                     assert page.locator(".er-preview,canvas").count() == 0
                     check_viewport(page)
+                    page.screenshot(path=str(output / f"{lang}-{width}-{height}-initial.png"))
                     # Both independent planes advance over time and loop without a stopping tour.
                     before = page.locator(".er-plane").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
@@ -115,6 +116,14 @@ def main() -> None:
                     page.locator("[data-er-pause]").click()
                     expect(page.locator("[data-er-pause]")).to_have_attribute(
                         "aria-pressed", "true"
+                    )
+                    page.wait_for_function(
+                        "[...document.querySelectorAll('.er-plane')].every("
+                        "el=>getComputedStyle(el).animationPlayState==='paused')"
+                    )
+                    page.evaluate(
+                        "new Promise(resolve=>requestAnimationFrame("
+                        "()=>requestAnimationFrame(resolve)))"
                     )
                     paused = page.locator(".er-plane").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
