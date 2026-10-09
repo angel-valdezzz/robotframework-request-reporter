@@ -73,7 +73,7 @@ def check_documentation(page: Page, base: str) -> None:
     expect(page.locator("body")).to_have_attribute("data-er-motion-paused", "true")
     page.locator(".er-scroll-cue").click()
     expect(page.locator("#er-content")).to_be_focused()
-    assert page.evaluate("scrollY > 100")
+    page.wait_for_function("scrollY > 100")
 
 
 def main() -> None:
