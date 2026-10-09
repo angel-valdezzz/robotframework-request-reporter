@@ -1,77 +1,60 @@
-/* Progressive enhancement: without JS every stage remains visible. No external assets. */
+/* Ambient motion is independent of navigation, search and the genuine report examples. */
 (() => {
-  let dispose = () => {};
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let paused = false, dispose = () => {};
   function mount() {
     dispose();
     const hero = document.querySelector('[data-er-hero]');
-    if (!hero) return;
-    const canvas = hero.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
-    const pause = hero.querySelector('[data-er-pause]');
-    const replay = hero.querySelector('[data-er-replay]');
-    const controls = hero.querySelector('.er-animation-controls');
-    const stages = [...hero.querySelectorAll('[data-stage]')];
-    const es = hero.dataset.lang === 'es';
-    const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    let paused = motion.matches, visible = true, frame = 0, last = 0, elapsed = 0, width = 0, height = 0;
-    controls.hidden = false;
-    function size() {
-      width = hero.clientWidth; height = hero.clientHeight;
-      const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = width * dpr; canvas.height = height * dpr;
-      ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const pause = hero?.querySelector('[data-er-pause]');
+    const cue = hero?.querySelector('.er-scroll-cue');
+    const search = document.querySelector('.er-search-trigger');
+    const es = document.documentElement.lang === 'es';
+    const cleanups = [];
+    function listen(element, event, callback) {
+      if (!element) return;
+      element.addEventListener(event, callback);
+      cleanups.push(() => element.removeEventListener(event, callback));
     }
-    function render(time) {
-      const progress = (time % 14000) / 14000;
-      stages.forEach((el, i) => el.classList.toggle('is-visible', motion.matches || progress > .1 + i * .14));
-      if (!ctx || !width || motion.matches) return;
-      ctx.clearRect(0, 0, width, height);
-      // Evidence streams converge into the report. Curves form a quiet, living field.
-      const cx = width * .72, cy = height * .48;
-      for (let i = 0; i < 42; i++) {
-        const spread = i / 41;
-        const drift = Math.sin(time / 8000 + spread * 4) * height * .08;
-        const startY = height * (spread * 1.65 - .3);
-        const endY = cy + (spread - .5) * height * .45;
-        ctx.beginPath();
-        ctx.moveTo(-40, startY);
-        ctx.bezierCurveTo(width * .25, startY + drift, width * .48, cy + (spread - .5) * 70, cx, endY);
-        ctx.bezierCurveTo(width * .9, endY - drift, width * 1.05, height * spread, width + 50, height * (spread * 1.4 - .2));
-        ctx.strokeStyle = i % 3 === 0 ? `rgba(${hero.dataset.secondary},.13)` : `rgba(${hero.dataset.accent},.16)`;
-        ctx.lineWidth = .8; ctx.stroke();
-        const p = (time / 12000 + spread) % 1;
-        const x = width * p;
-        const y = startY * (1-p) + cy * p + Math.sin(p * Math.PI) * drift;
-        ctx.beginPath(); ctx.arc(x, y, 1.25, 0, Math.PI * 2);
-        ctx.fillStyle = i % 3 === 0 ? `rgba(${hero.dataset.secondary},.55)` : `rgba(${hero.dataset.accent},.45)`;ctx.fill();
-      }
-    }
-    function updateControl() {
-      pause.textContent = paused ? (es ? 'Reanudar' : 'Resume') : (es ? 'Pausar' : 'Pause');
-      pause.setAttribute('aria-pressed', String(paused));
+    function update() {
+      document.body.dataset.erMotionPaused = String(paused || motion.matches);
+      if (!pause) return;
+      pause.hidden = false;
       pause.disabled = motion.matches;
-      pause.title = motion.matches ? (es ? 'Movimiento reducido: vista estática' : 'Reduced motion: static view') : ''; 
+      pause.setAttribute('aria-pressed', String(paused || motion.matches));
+      pause.querySelector('span:last-child').textContent = motion.matches
+        ? (es ? 'Movimiento reducido' : 'Reduced motion')
+        : paused ? (es ? 'Reanudar animación' : 'Resume animation')
+        : (es ? 'Pausar animación' : 'Pause animation');
     }
-    function tick(now) {
-      frame = 0;
-      if (paused || !visible || document.hidden || motion.matches) {last = 0; return;}
-      if (last) elapsed += Math.min(now - last, 80);
-      last = now; render(elapsed); frame = requestAnimationFrame(tick);
+    function syncHeaderMotion() {
+      if (hero) return;
+      const animation = selector => document.querySelector(selector)?.getAnimations?.()
+        .find(item => item.animationName === 'er-header-flow');
+      const header = animation('.md-header'), tabs = animation('.md-tabs');
+      // Tabs restart when they reappear after a mobile viewport; restore the shared phase.
+      if (header && tabs && header.currentTime !== null) tabs.currentTime = header.currentTime;
     }
-    function schedule() {if (!frame && !paused && visible && !document.hidden && !motion.matches) frame = requestAnimationFrame(tick);}
-    function toggle() {paused = !paused; updateControl(); if (paused) {cancelAnimationFrame(frame);frame=0;last=0;} else schedule();}
-    function restart() {elapsed=0;last=0; paused=motion.matches;updateControl();render(motion.matches ? 12000 : 0);schedule();}
-    function preference() {paused=motion.matches;updateControl();if(motion.matches){cancelAnimationFrame(frame);frame=0;ctx?.clearRect(0,0,width,height);stages.forEach(el=>el.classList.add('is-visible'));}else schedule();}
-    function visibility() {last=0;schedule();}
-    const observer = new IntersectionObserver(entries => {visible=entries[0].isIntersecting;last=0;schedule();},{threshold:.05});
-    const resize = new ResizeObserver(() => {size();render(elapsed);});
-    hero.setAttribute('data-er-running','');size();render(paused ? 12000 : 0);updateControl();
-    observer.observe(hero);resize.observe(hero);
-    pause.addEventListener('click',toggle);replay.addEventListener('click',restart);
-    motion.addEventListener('change',preference);document.addEventListener('visibilitychange',visibility);schedule();
-    dispose = () => {cancelAnimationFrame(frame);observer.disconnect();resize.disconnect();pause.removeEventListener('click',toggle);replay.removeEventListener('click',restart);motion.removeEventListener('change',preference);document.removeEventListener('visibilitychange',visibility);};
+    listen(pause, 'click', () => { paused = !paused; update(); });
+    listen(cue, 'click', event => {
+      const content = document.getElementById('er-content');
+      if (!content) return;
+      event.preventDefault();
+      content.scrollIntoView({behavior: motion.matches ? 'auto' : 'smooth', block: 'start'});
+      content.focus({preventScroll: true});
+    });
+    listen(search, 'keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        search.click();
+      }
+    });
+    listen(motion, 'change', update);
+    listen(window, 'resize', syncHeaderMotion);
+    update();
+    syncHeaderMotion();
+    dispose = () => cleanups.forEach(cleanup => cleanup());
   }
   if (typeof document$ !== 'undefined') document$.subscribe(mount);
-  else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded',mount,{once:true});
+  else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount);
   else mount();
 })();

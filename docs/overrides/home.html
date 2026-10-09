@@ -2,32 +2,26 @@
 {% block tabs %}
 {{ super() }}
 {% set es = config.theme.language == 'es' %}
-<section class="er-hero" aria-labelledby="er-headline" data-er-hero data-lang="{{ config.theme.language }}" data-accent="132,186,255" data-secondary="127,232,221" style="--scene-accent:#84baff;--scene-secondary:#7fe8dd">
-  <canvas class="er-field" aria-hidden="true"></canvas>
+{% macro icon(name) %}<span class="er-icon" aria-hidden="true">{% include ".icons/material/" ~ name ~ ".svg" %}</span>{% endmacro %}
+<section class="er-hero" aria-labelledby="er-headline" data-er-hero data-lang="{{ config.theme.language }}">
+  <div class="er-convergence" aria-hidden="true">
+    <img class="er-backdrop" src="{{ 'assets/images/landing-background.webp' | url }}" alt="" fetchpriority="high">
+    <img class="er-plane er-plane-blue" src="{{ 'assets/images/landing-blue.webp' | url }}" alt="">
+    <img class="er-plane er-plane-teal" src="{{ 'assets/images/landing-teal.webp' | url }}" alt="">
+  </div>
   <div class="er-hero-inner">
     <div class="er-hero-copy">
-      <div class="er-kicker">PYTHON <span> / </span> ROBOT FRAMEWORK</div>
-      <h1 id="er-headline">{{ 'Cada petición.<br><em>Una respuesta clara.</em>' if es else 'Every request.<br><em>A clear answer.</em>' }}</h1>
-      <p>{{ 'Convierte intercambios API y validaciones en un reporte portable. Cada petición, respuesta y resultado, juntos.' if es else 'Turn API exchanges and assertions into a portable report. Every request, response and result, together.' }}</p>
+      <h1 id="er-headline"><span>{{ 'Cada petición.' if es else 'Every request.' }}</span><em>{{ 'Una respuesta clara.' if es else 'A clear answer.' }}</em></h1>
+      <p>{{ 'Convierte intercambios API y validaciones en un reporte portable.' if es else 'Turn API exchanges and assertions into a portable report.' }}</p>
       <div class="er-actions">
-        <a class="er-action er-action-primary" href="{{ 'installation/' | url }}">{{ 'Comenzar' if es else 'Get started' }} <span aria-hidden="true">→</span></a>
-        <a class="er-action er-action-secondary" href="{{ ('examples/report.es.html' if es else 'examples/report.html') | url }}">{{ 'Explorar el ejemplo' if es else 'Explore the example' }} <span aria-hidden="true">→</span></a>
+        <a class="er-action er-action-primary" href="{{ 'installation/' | url }}">{{ 'Comenzar' if es else 'Get started' }} {{ icon('arrow-right') }}</a>
+        <a class="er-action er-action-secondary" href="#report-preview">{{ 'Explorar el reporte' if es else 'Explore the report' }} {{ icon('arrow-right') }}</a>
       </div>
-      <div class="er-facts"><span>HTTP · Assertions · HTML</span><span>{{ 'Abierto y gratuito' if es else 'Open source & free' }}</span></div>
-    </div>
-    <div class="er-report-scene" aria-label="{{ 'Animación ilustrativa con datos ficticios' if es else 'Illustrative animation with fictitious data' }}">
-      <div class="er-scene-caption"><span class="er-live-dot"></span>{{ 'DE LOS DATOS AL RESULTADO' if es else 'FROM INPUT TO INSIGHT' }}</div>
-      <div class="er-preview">
-        <div class="er-scene-title"><img src="{{ 'assets/logo.svg' | url }}" alt=""><strong>Request Reporter</strong></div>
-        <div class="er-preview-body"><div class="er-scene-row er-assemble" data-stage="1"><strong>GET</strong> <code>/api/customers/1042</code><div class="er-muted">{{ 'Capture the exchange' if not es else 'Captura el intercambio' }}</div></div>
-<div class="er-scene-row er-assemble" data-stage="2"><strong class="er-value">200 OK</strong><br><code>{"id": 1042, "active": true}</code></div>
-<div class="er-scene-row er-assemble" data-stage="3"><span class="er-value">✓</span> {{ 'HTTP status' if not es else 'Estado HTTP' }} · 200<br><span class="er-value">✓</span> {{ 'Customer is active' if not es else 'Cliente activo' }}</div>
-<div class="er-scene-row er-assemble" data-stage="4"><strong>HTML</strong> · {{ 'One case. Every exchange.' if not es else 'Un caso. Cada intercambio.' }}</div></div>
-      </div>
-      <div class="er-scene-footer"><span>{{ 'Ilustración · datos ficticios' if es else 'Illustration · fictitious data' }}</span><div class="er-animation-controls" hidden><button type="button" data-er-pause aria-pressed="false">{{ 'Pausar' if es else 'Pause' }}</button><button type="button" data-er-replay>{{ 'Repetir' if es else 'Replay' }}</button></div></div>
+      <div class="er-facts">HTTP · ASSERTIONS · HTML</div>
     </div>
   </div>
-  <a class="er-scroll" href="#overview">{{ 'Descubre lo que puedes crear' if es else 'Discover what you can create' }} <span aria-hidden="true">↓</span></a>
+  <a class="er-scroll-cue" href="#er-content"><span class="er-scroll-circle">{{ icon('arrow-down') }}</span><span>{{ 'Descubre Request Reporter' if es else 'Discover Request Reporter' }}</span></a>
+  <button class="er-motion-toggle" type="button" data-er-pause aria-pressed="false" hidden>{{ icon('pause') }}<span>{{ 'Pausar animación' if es else 'Pause animation' }}</span></button>
 </section>
 {% endblock %}
-{% block content %}<div class="er-home-content">{{ page.content }}</div>{% endblock %}
+{% block content %}<div class="er-home-content" id="er-content" tabindex="-1">{{ page.content }}</div>{% endblock %}
