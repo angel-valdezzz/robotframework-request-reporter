@@ -101,6 +101,7 @@ def main() -> None:
                     expect(page.locator("[data-er-pause]")).to_be_visible()
                     page.locator(".er-plane").first.wait_for(state="visible")
                     page.evaluate("Promise.all([...document.images].map(i=>i.decode()))")
+                    page.evaluate("document.fonts.ready")
                     assert page.locator("h1").count() == 1
                     assert page.locator(".er-preview,canvas").count() == 0
                     check_viewport(page)

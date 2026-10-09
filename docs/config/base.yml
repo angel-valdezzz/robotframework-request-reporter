@@ -7,13 +7,13 @@ copyright: Robot Framework Request Reporter · Robot Framework API evidence
 extra_javascript:
   - assets/navigation.js?v=locale-3
   - assets/mermaid.min.js
-  - assets/landing.js?v=convergence-1
+  - assets/landing.js?v=convergence-2
   - assets/keyword-links.js
 extra_css:
   - assets/stylesheets/standard.css
   - assets/stylesheets/extra.css
   - assets/stylesheets/visual.css
-  - assets/stylesheets/landing.css?v=convergence-1
+  - assets/stylesheets/landing.css?v=convergence-2
 theme:
   logo: assets/logo.svg
   favicon: assets/favicon.svg
