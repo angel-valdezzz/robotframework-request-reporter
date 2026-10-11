@@ -4,24 +4,32 @@
 {% set es = config.theme.language == 'es' %}
 {% macro icon(name) %}<span class="er-icon" aria-hidden="true">{% include ".icons/material/" ~ name ~ ".svg" %}</span>{% endmacro %}
 <section class="er-hero" aria-labelledby="er-headline" data-er-hero data-lang="{{ config.theme.language }}">
-  <div class="er-convergence" aria-hidden="true">
-    <img class="er-backdrop" src="{{ 'assets/images/landing-background.webp' | url }}" alt="" fetchpriority="high">
-    <img class="er-plane er-plane-blue" src="{{ 'assets/images/landing-blue.webp' | url }}" alt="">
-    <img class="er-plane er-plane-teal" src="{{ 'assets/images/landing-teal.webp' | url }}" alt="">
-  </div>
   <div class="er-hero-inner">
     <div class="er-hero-copy">
-      <h1 id="er-headline"><span>{{ 'Cada petición.' if es else 'Every request.' }}</span><em>{{ 'Una respuesta clara.' if es else 'A clear answer.' }}</em></h1>
-      <p>{{ 'Convierte intercambios API y validaciones en un reporte portable.' if es else 'Turn API exchanges and assertions into a portable report.' }}</p>
+      <h1 id="er-headline"><span>{{ 'La respuesta' if es else 'The response' }}</span><em>{{ 'no lo cuenta todo.' if es else 'is only part of it.' }}</em></h1>
+      <p class="er-intro">{{ 'Peticiones HTTP y validaciones, reunidas en un reporte HTML.' if es else 'HTTP requests and assertions, together in an HTML report.' }}</p>
       <div class="er-actions">
         <a class="er-action er-action-primary" href="{{ 'installation/' | url }}">{{ 'Comenzar' if es else 'Get started' }} {{ icon('arrow-right') }}</a>
-        <a class="er-action er-action-secondary" href="#report-preview">{{ 'Explorar el reporte' if es else 'Explore the report' }} {{ icon('arrow-right') }}</a>
+        <a class="er-action er-action-secondary" href="#report-preview">{{ 'Explorar el reporte' if es else 'Explore the report' }}</a>
       </div>
-      <div class="er-facts">HTTP · ASSERTIONS · HTML</div>
+    </div>
+    <div class="er-aperture" data-er-scene role="img" aria-label="{{ 'Una respuesta HTTP correcta contiene un título vacío y una validación fallida.' if es else 'A successful HTTP response contains an empty title and a failed assertion.' }}">
+      <img class="er-ground-light" src="{{ 'assets/images/ground-light.webp' | url }}" alt="" aria-hidden="true">
+      <div class="er-pieces" aria-hidden="true">
+        <img class="er-piece er-piece-left" src="{{ 'assets/images/quote-left.webp' | url }}" alt="" width="1106" height="1422" fetchpriority="high">
+        <img class="er-piece er-piece-right" src="{{ 'assets/images/quote-right.webp' | url }}" alt="" width="1106" height="1422">
+      </div>
+      <div class="er-response-label" aria-hidden="true"><span>{{ 'RESPUESTA' if es else 'RESPONSE' }}</span><small>HTTP 200</small></div>
+      <img class="er-connection er-cyan-connection" src="{{ 'assets/images/connection-cyan.webp' | url }}" alt="" aria-hidden="true">
+      <code class="er-value-label" aria-hidden="true">title: <strong>""</strong></code>
+      <img class="er-connection er-rose-connection" src="{{ 'assets/images/connection-rose.webp' | url }}" alt="" aria-hidden="true">
+      <div class="er-validation-label" aria-hidden="true"><span>ASSERTION</span><b>FAIL</b></div>
+    </div>
+    <div class="er-cover-bottom">
+      <a class="er-scroll-cue" href="#er-content"><span class="er-scroll-circle">{{ icon('arrow-down') }}</span><span>{{ 'Descubre Request Reporter' if es else 'Discover Request Reporter' }}</span></a>
+      <button class="er-motion-toggle" type="button" data-er-pause aria-pressed="false" hidden>{{ icon('pause') }}<span>{{ 'Pausar' if es else 'Pause' }}</span></button>
     </div>
   </div>
-  <a class="er-scroll-cue" href="#er-content"><span class="er-scroll-circle">{{ icon('arrow-down') }}</span><span>{{ 'Descubre Request Reporter' if es else 'Discover Request Reporter' }}</span></a>
-  <button class="er-motion-toggle" type="button" data-er-pause aria-pressed="false" hidden>{{ icon('pause') }}<span>{{ 'Pausar animación' if es else 'Pause animation' }}</span></button>
 </section>
 {% endblock %}
 {% block content %}<div class="er-home-content" id="er-content" tabindex="-1">{{ page.content }}</div>{% endblock %}

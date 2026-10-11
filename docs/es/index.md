@@ -1,10 +1,21 @@
 ---
 template: home.html
 title: Request Reporter
-description: Convierte intercambios API y validaciones en un reporte portable.
+description: Peticiones HTTP y validaciones, reunidas en un reporte HTML.
 ---
 
 <div id="overview"></div>
+
+<section class="er-report-explanation" markdown>
+
+## El estado es una parte. El contenido completa la historia.
+
+Una respuesta HTTP 200 puede contener un dato que incumple la validación. Request Reporter
+reúne la petición, la respuesta y las assertions para que puedas leer el resultado con
+su contexto. La portada interpreta el título vacío de un caso ficticio de libros.
+El HTML de abajo es el archivo real generado por la herramienta.
+
+</section>
 
 ## Captura. Valida. Comparte.
 
@@ -28,10 +39,15 @@ description: Convierte intercambios API y validaciones en un reporte portable.
 
 <h2 id="report-preview-title">El reporte, tal como se genera</h2>
 
-Esta vista carga el HTML que genera el proyecto al ejecutar sus pruebas. Puedes explorar
-Resumen, Solicitudes y Fallos aquí o [abrir el reporte completo](examples/report.es.html).
+Tres peticiones, cuatro validaciones aprobadas y un fallo intencional. Abre **Fallos**
+y selecciona **Book title must contain a value** para llegar a **Consult book** y su
+assertion exacta. También puedes [abrir el reporte completo](examples/books.es.html).
 
-<iframe src="examples/report.es.html" title="Reporte HTML real de Request Reporter en español" loading="lazy"></iframe>
+<iframe src="examples/books.es.html" title="Reporte HTML real del caso de libros en español" loading="lazy"></iframe>
+
+[Descargar el caso de prueba](examples/book-example.zip){ download }
+
+HTML autónomo. Listo para abrir sin conexión.
 
 </section>
 

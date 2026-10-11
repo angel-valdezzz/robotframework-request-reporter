@@ -1,95 +1,44 @@
-# Request Reporter — Convergence implementation review
+# Request Reporter - Double reading integration
 
-## Evidence and normalization
+## Approved source
 
-Source visual truth: approved option 2,
-`/workspace/scratch/2ffb0fc245da/generated_images/exec-aaacb7f5-e6aa-4ce7-9fb5-8fa23f0c220c.png`.
-Source: 1487 × 1058 px, uniformly normalized to 1440 × 1024 px for comparison.
-Implementation: Chromium, 1440 × 1024 CSS px / image px, device scale factor 1.
-Final capture: `/workspace/scratch/2ffb0fc245da/qa/request-ci16/es-1440-1024-default.png`.
-State: Spanish home, scroll 0, ambient motion paused, light documentation theme.
-The reference is a static frame; the pause button intentionally reads “Resume animation”
-in the implementation because the capture pauses the live animation.
+The third demo selected on 2026-10-11:
+https://request-reporter-doble-lectura-demo-angel-20261011.candidelf4.chatgpt.site
 
-Full-view comparison: `/workspace/scratch/2ffb0fc245da/qa/request-ci16/comparison-full.png`.
-Focused comparisons in that directory: `comparison-header.png`,
-`comparison-headline-actions.png`, `comparison-planes.png`, `comparison-teal.png`.
-Responsive captures: `es-1366-625-default.png`, `es-820-1180-default.png`,
-`es-390-844-default.png`; equivalent English captures and both themes were checked.
-Real report and guide: `es-real-report.png`, `docs-es-header.png`.
+The integration reuses its five optimized transparent WebP assets and its
+responsive composition. The original SVG logo and palette are retained.
+The bold white/cyan serif headline reads "La respuesta / no lo cuenta todo."
+HTTP 200 remains a small secondary response label.
 
-## Findings and comparison history
+## Motion and interaction
 
-No actionable P0/P1/P2 findings remain after iteration 3.
+The pieces open, expose the empty title, and connect it with ASSERTION / FAIL.
+The focus lasts 1.5 seconds in a continuous ten-second cycle. There is no hover
+pause or speed control. Pause/resume, reduced motion, hidden-tab suspension,
+offscreen suspension and instant-navigation teardown are supported.
+The hero remains dark independently of the documentation theme.
 
-1. Iteration 1, CI run 37871305660, screenshots in `qa/request-ci13`:
-   - [P2, fixed] System fallback rendered an overly wide headline, square points
-     and an oversized secondary action. Bundled Inter regular/bold WOFF2 under
-     SIL OFL; reduced action padding and icon gap.
-   - [P2, fixed] Teal plane's foot was roughly 90 px too low at 1440×1024.
-     Width 35.4vw, right 0 and top 19.5svh restored the chosen proportions.
-2. Iteration 2, CI run 37893160222, screenshots in `qa/request-ci15`:
-   - [P2, fixed] Headline remained slightly small/low. Changed size to 5.95vw,
-     line height to 1.015, bottom hero padding to 154px.
-   - [P2, fixed] At 820×1180 the teal plane crossed the subtitle. A ≤1100px
-     override moves it outward and downward, preserving a dark central field.
-3. Iteration 3, CI run 37893574640, screenshots in `qa/request-ci16`:
-   Full-view and focused comparisons confirm the headline/action rhythm,
-   clean tablet subtitle, retained hierarchy and coherent illuminated planes.
-   The mobile wordmark fits completely and all controls fit the checked viewports.
+The lower iframe uses a report regenerated from examples/books/visual.robot,
+with three captured responses, four passing assertions and one intentional
+empty-title failure. The fixture is loopback-only and needs no external API.
+Both report locales and a ZIP of the runnable example are produced at build.
+The native Failures link selects request 2 and its exact failed assertion.
+Language changes preserve the report section, request, detail tab, filter,
+content theme and report section anchor. State is consumed only after the
+destination locale and the iframe finish loading.
 
-## Required fidelity surfaces
+## Evidence and verification
 
-- Fonts/typography: locally hosted Inter provides consistent round points and
-  display proportions; no external font service. White first line, mint second
-  line, matching short copy. Native documentation type remains unchanged.
-- Spacing/layout: centered two-line desktop headline, pill actions, facts,
-  bottom circular scroll cue and corner motion control. Laptop actions remain
-  above the fold; mobile stacks the buttons; tablet keeps artwork off the copy.
-- Colors/tokens: original #086879 / #2544a5 / #5be0d0 palette and dark navy hero.
-  Home remains visually stable in both documentation themes. Documentation
-  header and tabs share the same gradient and animation phase.
-- Image quality: generated blue/teal raster planes and background, optimized
-  WebP (roughly 90 KB total), real alpha and continuous bevels. No CSS artwork,
-  particle-line substitute or fake report. Original supplied SVG logo retained.
-- Copy/content: approved headline and concise description in EN/ES. The lower
-  iframe loads the report generated by executable project tests; its controls
-  and links open the same genuine renderer, with localized report text.
-- Icons/affordances: native Material icons, keyboard search trigger, semantic
-  links/buttons, visible focus, hover perimeter glow and explicit scroll cue.
+Browser evidence is generated into build/landing-checks/ by
+docs/scripts/verify_landing.py. It checks English and Spanish at 1440x1024,
+1366x625, 390x844 and 820x1180, both content themes, overflow, action placement,
+continuous motion, real pause/resume, reduced motion, native report navigation,
+language round trips, search, instant navigation and JavaScript-free links.
+Assertion-focus screenshots capture the empty value and its failed validation.
 
-## Browser and functional validation
+The strict bilingual build verifies the generated report payload, intentional
+failure count, locale and example-secret redaction. Repeated builds replace the
+prior generated output. Ruff, mypy and the example Robot format/lint checks pass.
 
-Chromium checks passed on head `4aec3e6d1b780a632eddf9901b14e92ab70be4e8`:
-EN/ES; 1440×1024, 1366×625, 390×844, 820×1180; both themes; no horizontal
-page overflow; separated theme/language/search controls; actions above the fold;
-continuous independent motion; actual pause/resume; reduced-motion preference
-changes; genuine report Requests/Assertions controls; keyboard search; instant
-navigation home→installation→home; page-preserving EN→ES switch retaining dark
-theme; header/tab gradient phase difference <1 ms; scroll moves and focuses the
-content; working actions with JavaScript disabled. No page JavaScript errors.
-
-Linux and Windows quality/package checks also passed (run 37893574660).
-Strict bilingual MkDocs build and navigation/fragment/theme regression checks pass.
-The early pause and scroll checks were synchronized with the compositor and
-smooth scrolling before sampling; no production behavior was weakened.
-
-## Follow-up polish (P3, non-blocking)
-
-- Generated material grain and the left fold junction vary slightly from the
-  static ImageGen reference; the approved broad planes, palette and continuous
-  edges remain intact. The original supplied logo intentionally stays flat.
-- Native Material icon shapes differ slightly from the reference's illustrated
-  icons; project consistency and full keyboard behavior are retained.
-
-## Implementation checklist
-
-- [x] Implement selected Convergence design and original identity.
-- [x] Put genuine report below hero; preserve explanatory documentation.
-- [x] Share header/nav movement and honor pause/reduced motion.
-- [x] Check all required fidelity surfaces using combined visual evidence.
-- [x] Fix P2 findings and compare revised Chromium captures.
-- [x] Pass bilingual, responsive, navigation, search and real-report checks.
-- [ ] Publish and verify public documentation (post-merge delivery check).
-
-final result: passed
+Minor optical differences from the generated concept remain in the system
+serif letterforms. The approved moving raster pieces are preserved exactly.

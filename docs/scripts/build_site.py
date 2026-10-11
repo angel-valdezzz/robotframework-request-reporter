@@ -7,6 +7,7 @@ from pathlib import Path
 
 from bilingual_libdoc import generate
 from bilingual_site import build
+from book_example import build_book_example
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -28,6 +29,7 @@ def main() -> None:
     )
     examples = ROOT / "docs" / "examples"
     examples.mkdir(exist_ok=True)
+    build_book_example(ROOT, examples)
     shutil.copyfile(demo, examples / "report.html")
     shutil.copyfile(ROOT / "build/report.es.html", examples / "report.es.html")
     # Remove the retired demo even when rebuilding an existing working directory.
