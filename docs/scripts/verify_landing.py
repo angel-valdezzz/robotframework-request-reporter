@@ -1,6 +1,7 @@
 """Check real Chromium rendering, ambient motion and bilingual documentation flows."""
 
 import json
+import shutil
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -34,10 +35,32 @@ def check_report(page: Page, lang: str) -> None:
     frame = page.frame_locator(".er-real-report iframe")
     expect(frame.locator("#request-count")).not_to_be_empty()
     expect(frame.locator("html")).to_have_attribute("lang", lang)
-    frame.locator('[data-section="requests"]').click()
-    frame.locator("#tab-assertions").click()
+    frame.locator('.sections [data-section="failures"]').click()
+    frame.get_by_role("button", name="Book title must contain a value", exact=False).click()
+    expect(frame.locator('[data-request="2"]')).to_have_attribute("aria-pressed", "true")
+    expect(frame.locator("#tab-assertions")).to_have_attribute("aria-selected", "true")
     expect(frame.locator("#content .validation").first).to_be_visible()
     page.screenshot(path=str(ROOT / "build/landing-checks" / f"{lang}-real-report.png"))
+    frame.locator('[data-filter="fail"]').click()
+    page.locator('.md-header label[for^="__palette_"]:visible').click()
+    target_theme = (
+        "dark" if page.locator("body").get_attribute("data-md-color-scheme") == "slate" else "light"
+    )
+    expect(frame.locator("html")).to_have_attribute("data-theme", target_theme)
+    page.locator(".md-select button").click()
+    other = "es" if lang == "en" else "en"
+    page.locator(f'[data-doc-language="{other}"]').click()
+    expect(page.locator("html")).to_have_attribute("lang", other)
+    # Material's scroll tracking may name the section's heading instead of its wrapper.
+    assert page.url.endswith(("#report-preview", "#report-preview-title")), page.url
+    expect(frame.locator('[data-request="2"]')).to_have_attribute("aria-pressed", "true")
+    expect(frame.locator("#tab-assertions")).to_have_attribute("aria-selected", "true")
+    expect(frame.locator('[data-filter="fail"]')).to_have_attribute("aria-pressed", "true")
+    expect(frame.locator("html")).to_have_attribute("data-theme", target_theme)
+    page.locator(".md-select button").click()
+    page.locator(f'[data-doc-language="{lang}"]').click()
+    expect(page.locator("html")).to_have_attribute("lang", lang)
+    expect(frame.locator('[data-request="2"]')).to_have_attribute("aria-pressed", "true")
     page.evaluate("scrollTo(0, 0)")
 
 
@@ -80,8 +103,13 @@ def main() -> None:
     server_root = ROOT / "build/docs-server"
     server_root.mkdir(parents=True, exist_ok=True)
     mount = server_root / MOUNT
+    if mount.exists() and not mount.is_symlink():
+        shutil.copytree(ROOT / "site", mount, dirs_exist_ok=True)
     if not mount.exists():
-        mount.symlink_to(ROOT / "site", target_is_directory=True)
+        try:
+            mount.symlink_to(ROOT / "site", target_is_directory=True)
+        except OSError:
+            shutil.copytree(ROOT / "site", mount)
     handler = partial(SimpleHTTPRequestHandler, directory=str(server_root))
     server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
     Thread(target=server.serve_forever, daemon=True).start()
@@ -99,7 +127,7 @@ def main() -> None:
                     page.on("pageerror", lambda error, found=errors: found.append(str(error)))
                     page.goto(base + ("es/" if lang == "es" else ""))
                     expect(page.locator("[data-er-pause]")).to_be_visible()
-                    page.locator(".er-plane").first.wait_for(state="visible")
+                    page.locator(".er-piece").first.wait_for(state="visible")
                     page.evaluate("Promise.all([...document.images].map(i=>i.decode()))")
                     page.evaluate("document.fonts.ready")
                     assert page.locator("h1").count() == 1
@@ -107,30 +135,26 @@ def main() -> None:
                     check_viewport(page)
                     page.screenshot(path=str(output / f"{lang}-{width}-{height}-initial.png"))
                     # Both independent planes advance over time and loop without a stopping tour.
-                    before = page.locator(".er-plane").evaluate_all(
+                    before = page.locator(".er-piece").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
                     )
                     page.wait_for_timeout(180)
-                    assert before != page.locator(".er-plane").evaluate_all(
+                    assert before != page.locator(".er-piece").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
                     )
                     page.locator("[data-er-pause]").click()
                     expect(page.locator("[data-er-pause]")).to_have_attribute(
                         "aria-pressed", "true"
                     )
-                    page.wait_for_function(
-                        "[...document.querySelectorAll('.er-plane')].every("
-                        "el=>getComputedStyle(el).animationPlayState==='paused')"
-                    )
                     page.evaluate(
                         "new Promise(resolve=>requestAnimationFrame("
                         "()=>requestAnimationFrame(resolve)))"
                     )
-                    paused = page.locator(".er-plane").evaluate_all(
+                    paused = page.locator(".er-piece").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
                     )
                     page.wait_for_timeout(180)
-                    assert paused == page.locator(".er-plane").evaluate_all(
+                    assert paused == page.locator(".er-piece").evaluate_all(
                         "els=>els.map(el=>getComputedStyle(el).transform)"
                     )
                     styles = []
@@ -160,8 +184,15 @@ def main() -> None:
                         check_report(page, lang)
                     page.emulate_media(reduced_motion="reduce")
                     expect(page.locator("[data-er-pause]")).to_be_disabled()
-                    assert page.locator(".er-plane").evaluate_all(
-                        "els=>els.every(el=>getComputedStyle(el).animationName==='none')"
+                    expect(page.locator("[data-er-scene]")).to_have_attribute("data-focus", "true")
+                    if width == 1440:
+                        page.screenshot(path=str(output / f"{lang}-assertion-focus.png"))
+                    reduced = page.locator(".er-piece").evaluate_all(
+                        "els=>els.map(el=>getComputedStyle(el).transform)"
+                    )
+                    page.wait_for_timeout(180)
+                    assert reduced == page.locator(".er-piece").evaluate_all(
+                        "els=>els.map(el=>getComputedStyle(el).transform)"
                     )
                     page.emulate_media(reduced_motion="no-preference")
                     expect(page.locator("[data-er-pause]")).to_be_enabled()

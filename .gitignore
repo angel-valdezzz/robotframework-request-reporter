@@ -30,6 +30,10 @@ docs/en/examples/*.html
 docs/es/examples/*.html
 
 docs/examples/report.es.html
+docs/examples/books.*.html
+docs/examples/book-example.zip
+docs/en/examples/*.zip
+docs/es/examples/*.zip
 
 .cache/
 docs/config/.cache/

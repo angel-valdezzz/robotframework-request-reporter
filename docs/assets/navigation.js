@@ -13,7 +13,8 @@
       if (!target) continue;
       const url = new URL(target.link, location.href);
       url.search = location.search;
-      url.hash = target.fragments[fragment] || "";
+      url.hash = target.fragments[fragment] ||
+        (["er-content", "report-preview"].includes(fragment) ? fragment : "");
       link.href = url.href;
       if (target.current) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
