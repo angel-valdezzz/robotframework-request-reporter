@@ -107,6 +107,7 @@
     }
     // Preserve the native report view across full EN/ES navigation.
     const stateKey = 'rr-book-report-state';
+    const observedReports = new WeakSet();
     function reportState() {
       try {
         const doc = frame?.contentDocument;
@@ -130,6 +131,17 @@
     function restoreReport() {
       syncReportTheme();
       try {
+        const loaded = frame?.contentDocument;
+        if (loaded?.readyState === 'complete' && !observedReports.has(loaded)) {
+          observedReports.add(loaded);
+          const clearPending = event => {
+            if (event.isTrusted) {
+              try { sessionStorage.removeItem(stateKey); } catch { /* Storage is optional. */ }
+            }
+          };
+          listen(loaded, 'click', clearPending);
+          listen(loaded, 'keydown', clearPending);
+        }
         const raw = sessionStorage.getItem(stateKey);
         if (!raw || frame?.contentDocument?.readyState !== 'complete' ||
             !frame.contentDocument.querySelector('.sections')) return;
@@ -138,7 +150,8 @@
         // destination locale may consume the state saved for the language switch.
         if (state.language !== document.documentElement.lang ||
             state.language !== doc.documentElement.lang) return;
-        sessionStorage.removeItem(stateKey);
+        // Material may reload the iframe after an instant-navigation remount.
+        // Reapply this handoff until the user interacts with the destination report.
         if (!['summary', 'failures', 'requests'].includes(state.section)) return;
         doc.querySelector(`[data-section="${state.section}"]`)?.click();
         if (state.section === 'requests') {
@@ -150,7 +163,13 @@
     }
     function preserveReport(event) {
       const languageLink = event.target.closest('[data-doc-language]');
-      if (!languageLink) return;
+      if (!languageLink) {
+        const link = event.target.closest('a[href]');
+        try {
+          if (link && new URL(link.href).pathname !== location.pathname) sessionStorage.removeItem(stateKey);
+        } catch { /* Storage is optional. */ }
+        return;
+      }
       try {
         const state = reportState();
         if (state) sessionStorage.setItem(stateKey, JSON.stringify({
